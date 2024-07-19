@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: digidine
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservices
+    username: admin
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
