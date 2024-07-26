@@ -1,10 +1,10 @@
-package com.fiap.digidine.applications.ports.inbound;
+package com.fiap.digidine.applications.ports.outbound;
 
 import com.fiap.digidine.domain.model.CustomerModel;
 
 import java.util.Optional;
 
-public interface IdentifyCustomerInputPort {
+public interface IdentifyCustomerOutputPort {
 
     CustomerModel identifyCustomer(String cpf);
 }

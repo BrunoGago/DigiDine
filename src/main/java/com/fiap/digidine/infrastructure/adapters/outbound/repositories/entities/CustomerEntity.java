@@ -1,21 +1,32 @@
-package com.fiap.digidine.domain.model;
+package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
-public class CustomerModel {
+@Entity
+@Table(name = "TB_CUSTOMER")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class CustomerEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column
     private String cpf;
 
+    @Column
     private String name;
 
+    @Column
     private String email;
 
-    public CustomerModel() {
+    public CustomerEntity() {
     }
 
-    public CustomerModel(UUID id, String cpf, String name, String email) {
+    public CustomerEntity(UUID id, String cpf, String name, String email) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;
@@ -53,4 +64,5 @@ public class CustomerModel {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

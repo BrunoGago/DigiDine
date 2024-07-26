@@ -1,7 +1,12 @@
 package com.fiap.digidine.infrastructure.adapters.inbound.controllers;
 
-import com.fiap.digidine.applications.core.domain.model.Customer;
+import com.fiap.digidine.applications.ports.inbound.IdentifyCustomerInputPort;
 import com.fiap.digidine.applications.ports.inbound.RegisterCustomerInputPort;
+import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.CustomerDto;
+import com.fiap.digidine.infrastructure.adapters.inbound.controllers.mappers.CustomerMapper;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,22 +14,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    private final RegisterCustomerInputPort customerUseCase;
+    @Autowired
+    private RegisterCustomerInputPort registerCustomerInputPort;
 
-    public CustomerController(RegisterCustomerInputPort customerUseCase) {
-        this.customerUseCase = customerUseCase;
-    }
+    @Autowired
+    private IdentifyCustomerInputPort identifyCustomerInputPort;
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @PostMapping
-    public Customer registerCustomer(@RequestBody Customer customer) {
-        return customerUseCase.registerCustomer(customer);
+    public ResponseEntity<Void> registerCustomer(@Valid @RequestBody CustomerDto customerDto) {
+        var customer = customerMapper.toCustomerModel(customerDto);
+        registerCustomerInputPort.registerCustomer(customer);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<Customer> identificarCliente(@PathVariable String cpf) {
-        return customerUseCase.identifyCustomer(cpf)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<CustomerDto> identificarCliente(@PathVariable String cpf) {
+        var customer = identifyCustomerInputPort.identifyCustomer(cpf);
+        var customerDto = customerMapper.toCustomerDto(customer);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
 }

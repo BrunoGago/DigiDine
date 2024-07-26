@@ -13,6 +13,6 @@ of the data access logic.
  */
 public interface CustomerRepository {
 
-    CustomerModel save(CustomerModel customer);
+    void save(CustomerModel customer);
     Optional<CustomerModel> findByCpf(String cpf);
 }

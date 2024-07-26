@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface RegisterCustomerInputPort {
 
-    CustomerModel registerCustomer(CustomerModel customer);
+    void registerCustomer(CustomerModel customer);
 }
