@@ -1,4 +1,4 @@
-package com.fiap.digidine.domain.model;
+package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities;
 
 import jakarta.persistence.*;
 
@@ -6,19 +6,19 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "TB_ORDERED_ITEM")
-public class OrderedItemModel {
+public class OrderedItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    private ProductModel product;
+    private ProductEntity product;
     private Integer quantity;
 
-    public OrderedItemModel() {
+    public OrderedItemEntity() {
     }
 
-    public OrderedItemModel(Long id, ProductModel product, Integer quantity) {
+    public OrderedItemEntity(Long id, ProductEntity product, Integer quantity) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
@@ -32,11 +32,11 @@ public class OrderedItemModel {
         this.id = id;
     }
 
-    public ProductModel getProduct() {
+    public ProductEntity getProduct() {
         return product;
     }
 
-    public void setProduct(ProductModel product) {
+    public void setProduct(ProductEntity product) {
         this.product = product;
     }
 
@@ -51,7 +51,7 @@ public class OrderedItemModel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrderedItemModel that)) return false;
+        if (!(o instanceof OrderedItemEntity that)) return false;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getProduct(), that.getProduct()) && Objects.equals(getQuantity(), that.getQuantity());
     }
 

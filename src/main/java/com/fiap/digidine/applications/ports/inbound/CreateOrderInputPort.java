@@ -1,8 +1,8 @@
 package com.fiap.digidine.applications.ports.inbound;
 
-import com.fiap.digidine.domain.model.OrderModel;
+import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.OrderEntity;
 
 public interface CreateOrderInputPort {
-    OrderModel createOrder(OrderModel order);
+    OrderEntity createOrder(OrderEntity order);
 
 }

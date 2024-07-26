@@ -1,4 +1,4 @@
-package com.fiap.digidine.infrastructure.adapters.outbound.outbound;
+package com.fiap.digidine.infrastructure.adapters.outbound;
 
 import com.fiap.digidine.applications.ports.outbound.IdentifyCustomerOutputPort;
 import com.fiap.digidine.domain.model.CustomerModel;

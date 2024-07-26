@@ -1,8 +1,7 @@
 package com.fiap.digidine.infrastructure.configs;
 
-import com.fiap.digidine.applications.ports.outbound.RegisterCustomerOutputPort;
 import com.fiap.digidine.applications.service.RegisterCustomerService;
-import com.fiap.digidine.infrastructure.adapters.outbound.outbound.RegisterCustomerAdapter;
+import com.fiap.digidine.infrastructure.adapters.outbound.RegisterCustomerAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

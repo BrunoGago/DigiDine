@@ -1,4 +1,4 @@
-package com.fiap.digidine.domain.model;
+package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities;
 
 import com.fiap.digidine.domain.model.enums.CategoryEnum;
 import jakarta.persistence.*;
@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "TB_PRODUCT")
-public class ProductModel {
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ public class ProductModel {
     @Enumerated(EnumType.STRING)
     private CategoryEnum category;
 
-    public ProductModel() {
+    public ProductEntity() {
     }
 
-    public ProductModel(Long id, String name, String description, BigDecimal price, CategoryEnum category) {
+    public ProductEntity(Long id, String name, String description, BigDecimal price, CategoryEnum category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -73,7 +73,7 @@ public class ProductModel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductModel product)) return false;
+        if (!(o instanceof ProductEntity product)) return false;
         return Objects.equals(getId(), product.getId()) && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getPrice(), product.getPrice()) && getCategory() == product.getCategory();
     }
 

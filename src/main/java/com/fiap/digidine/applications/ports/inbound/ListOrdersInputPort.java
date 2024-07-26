@@ -1,10 +1,10 @@
 package com.fiap.digidine.applications.ports.inbound;
 
-import com.fiap.digidine.domain.model.OrderModel;
+import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.OrderEntity;
 
 import java.util.List;
 
 public interface ListOrdersInputPort {
 
-    List<OrderModel> listOrders();
+    List<OrderEntity> listOrders();
 }

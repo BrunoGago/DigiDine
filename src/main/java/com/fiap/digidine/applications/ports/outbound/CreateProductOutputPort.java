@@ -1,7 +1,7 @@
 package com.fiap.digidine.applications.ports.outbound;
 
-import com.fiap.digidine.domain.model.ProductModel;
+import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
 
 public interface CreateProductOutputPort {
-    ProductModel createProduct(ProductModel product);
+    ProductEntity createProduct(ProductEntity product);
 }
