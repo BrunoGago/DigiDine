@@ -1,12 +1,12 @@
 package com.fiap.digidine.applications.service;
 
 import com.fiap.digidine.domain.model.CustomerModel;
-import com.fiap.digidine.applications.ports.inbound.CustomerUseCase;
+import com.fiap.digidine.applications.ports.inbound.RegisterCustomerInputPort;
 import com.fiap.digidine.applications.ports.outbound.CustomerRepository;
 
 import java.util.Optional;
 
-public class CustomerService implements CustomerUseCase {
+public class CustomerService implements RegisterCustomerInputPort {
 
     private final CustomerRepository customerRepository;
 

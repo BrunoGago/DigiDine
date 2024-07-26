@@ -1,7 +1,7 @@
 package com.fiap.digidine.infrastructure.adapters.inbound.controllers;
 
 import com.fiap.digidine.applications.core.domain.model.Customer;
-import com.fiap.digidine.applications.ports.inbound.CustomerUseCase;
+import com.fiap.digidine.applications.ports.inbound.RegisterCustomerInputPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    private final CustomerUseCase customerUseCase;
+    private final RegisterCustomerInputPort customerUseCase;
 
-    public CustomerController(CustomerUseCase customerUseCase) {
+    public CustomerController(RegisterCustomerInputPort customerUseCase) {
         this.customerUseCase = customerUseCase;
     }
 

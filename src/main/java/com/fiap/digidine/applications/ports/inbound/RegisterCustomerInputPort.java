@@ -4,9 +4,7 @@ import com.fiap.digidine.domain.model.CustomerModel;
 
 import java.util.Optional;
 
-public interface CustomerUseCase {
+public interface RegisterCustomerInputPort {
 
     CustomerModel registerCustomer(CustomerModel customer);
-
-    Optional<CustomerModel> identifyCustomer(String cpf);
 }
