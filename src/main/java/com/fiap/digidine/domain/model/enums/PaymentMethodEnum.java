@@ -1,4 +1,4 @@
-package com.fiap.digidine.applications.core.domain.enums;
+package com.fiap.digidine.domain.model.enums;
 
 public enum PaymentMethodEnum {
     QR_CODE,

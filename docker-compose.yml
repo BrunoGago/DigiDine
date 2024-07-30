@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: DigiDine
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+
+#  app:
+#    image: openjdk:21
+#    container_name: DigiDine
+#    depends_on:
+#      - db
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/DigiDine
+#      SPRING_DATASOURCE_USERNAME: admin
+#      SPRING_DATASOURCE_PASSWORD: admin
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#    volumes:
+#      - .:/app
+#    working_dir: /app
+#    command: ./mvnw spring-boot:run
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - backend
+
+networks:
+  backend:
+
+volumes:
+  db_data:
