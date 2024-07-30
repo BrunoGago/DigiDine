@@ -2,6 +2,8 @@ package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.UUID;
 
@@ -15,12 +17,14 @@ public class CustomerEntity {
     private UUID id;
 
     @Column
+    @CPF
     private String cpf;
 
     @Column
     private String name;
 
     @Column
+    @Email
     private String email;
 
     public CustomerEntity() {
