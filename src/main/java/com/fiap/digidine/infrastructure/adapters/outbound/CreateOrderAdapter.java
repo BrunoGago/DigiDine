@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fiap.digidine.applications.ports.outbound.CreateOrderOutputPort;
-
+import com.fiap.digidine.domain.model.OrderModel;
 import com.fiap.digidine.infrastructure.adapters.outbound.repositories.OrderJpaRepository;
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.OrderEntity;
 import com.fiap.digidine.infrastructure.adapters.outbound.repositories.mappers.OrderEntityMapper;
 
 @Component
@@ -19,9 +18,9 @@ public class CreateOrderAdapter implements CreateOrderOutputPort {
     private OrderEntityMapper orderEntityMapper;
 
     @Override
-    public OrderEntity createOrder(OrderEntity order){
+    public void createOrder(OrderModel order){
         var orderEntity = orderEntityMapper.toOrderEntity(order);
-        return orderJpaRepository.save(orderEntity);
+        orderJpaRepository.save(orderEntity);
     }
 
 }
