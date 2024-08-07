@@ -1,9 +1,12 @@
 package com.fiap.digidine.applications.service;
 
+import org.springframework.stereotype.Service;
+
 import com.fiap.digidine.applications.ports.inbound.CreateOrderInputPort;
 import com.fiap.digidine.applications.ports.outbound.CreateOrderOutputPort;
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.OrderEntity;
+import com.fiap.digidine.domain.model.OrderModel;
 
+@Service
 public class CreateOrderService implements CreateOrderInputPort {
 
     private CreateOrderOutputPort createOrderOutputPort;
@@ -13,7 +16,7 @@ public class CreateOrderService implements CreateOrderInputPort {
     }
     
     @Override
-    public OrderEntity createOrder(OrderEntity order) {
-        return createOrderOutputPort.createOrder(order);
+    public void createOrder(OrderModel order) {
+        createOrderOutputPort.createOrder(order);
     }
 }

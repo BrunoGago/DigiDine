@@ -13,10 +13,10 @@ public interface OrderMapper {
 
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    @Mapping(target = "id", ignore = true) // Se necessário, ignore o mapeamento do ID se for gerado automaticamente
+    @Mapping(target = "id", ignore = true) 
     OrderModel toOrderModel(OrderDto orderDto);
 
     OrderDto toOrderDto(OrderModel orderModel);
 
-    List<OrderDto> toOrderDtoList(List<OrderModel> orderModels); // Se precisar de mapeamento para listas
+    List<OrderDto> toOrderDtoList(List<OrderModel> orderModels); 
 }

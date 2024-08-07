@@ -9,7 +9,5 @@ import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.
 
 @Repository
 public interface OrderJpaRepository extends JpaRepository<OrderEntity, UUID> {
-    OrderEntity findById(UUID id);
-
-    OrderEntity deletById(UUID id);
+    OrderEntity listById(UUID id);
 }
