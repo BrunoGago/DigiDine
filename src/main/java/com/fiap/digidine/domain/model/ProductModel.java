@@ -1,11 +1,11 @@
-package com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos;
+package com.fiap.digidine.domain.model;
 
 import com.fiap.digidine.domain.model.enums.CategoryEnum;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class ProductDto {
+public class ProductModel {
 
     private String name;
 
@@ -17,7 +17,7 @@ public class ProductDto {
 
     private UUID id;
 
-    public ProductDto(String name, BigDecimal price, CategoryEnum category, UUID io) {
+    public ProductModel(String name, BigDecimal price, CategoryEnum category, UUID io) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -63,4 +63,5 @@ public class ProductDto {
     public void setId(UUID id) {
         this.id = id;
     }
+
 }

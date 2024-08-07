@@ -2,7 +2,10 @@ package com.fiap.digidine.applications.service;
 
 import com.fiap.digidine.applications.ports.inbound.EditProductInputPort;
 import com.fiap.digidine.applications.ports.outbound.EditProductOutputPort;
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
+import com.fiap.digidine.domain.model.ProductModel;
+import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.ProductDto;
+
+import java.util.UUID;
 
 public class EditProductService implements EditProductInputPort {
 
@@ -13,8 +16,8 @@ public class EditProductService implements EditProductInputPort {
     }
 
     @Override
-    public ProductEntity editProduct(ProductEntity product) {
-        return editProductOutputPort.editProduct(product);
+    public ProductModel editProduct(ProductDto product, UUID id) {
+        return editProductOutputPort.editProduct(product, id);
     }
 
 }

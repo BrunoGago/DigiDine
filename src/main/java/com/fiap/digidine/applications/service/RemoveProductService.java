@@ -2,7 +2,8 @@ package com.fiap.digidine.applications.service;
 
 import com.fiap.digidine.applications.ports.inbound.RemoveProductInputPort;
 import com.fiap.digidine.applications.ports.outbound.RemoveProductOutputPort;
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
+
+import java.util.UUID;
 
 public class RemoveProductService implements RemoveProductInputPort {
 
@@ -13,8 +14,9 @@ public class RemoveProductService implements RemoveProductInputPort {
     }
 
     @Override
-    public void removeProduct(long id){
+    public void removeProduct(UUID id){
         removeProductOutputPort.removeProduct(id);
     }
+
 
 }

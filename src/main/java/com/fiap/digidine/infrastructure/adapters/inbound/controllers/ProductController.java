@@ -4,7 +4,6 @@ package com.fiap.digidine.infrastructure.adapters.inbound.controllers;
 import com.fiap.digidine.applications.ports.inbound.CreateProductInputPort;
 import com.fiap.digidine.applications.ports.inbound.EditProductInputPort;
 import com.fiap.digidine.applications.ports.inbound.RemoveProductInputPort;
-import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.CustomerDto;
 import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.ProductDto;
 import com.fiap.digidine.infrastructure.adapters.inbound.controllers.mappers.ProductMapper;
 import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
@@ -34,20 +33,20 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Void> createProduct(@Valid @RequestBody ProductDto productDto) {
-        var product = productMapper.toProductEntity(productDto);
-        createProductInputPort.createProduct(product);
+
+        createProductInputPort.createProduct(productMapper.toProductDto(productDto));
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PutMapping
-    public ResponseEntity<ProductDto> editProduct(@PathVariable ProductEntity productEntity) {
-        var product = editProductInputPort.editProduct(productEntity)
-        var productDto = productMapper.toProductDto(product);
-        return ResponseEntity.status(HttpStatus.OK).body(productDto);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> editProduct(@RequestBody ProductDto productDto, @PathVariable UUID id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productMapper
+                        .toProductDto(editProductInputPort.editProduct(productDto,id)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Void> removeProduct(@PathVariable long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeProduct(@PathVariable UUID id) {
         removeProductInputPort.removeProduct(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

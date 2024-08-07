@@ -1,8 +1,10 @@
 package com.fiap.digidine.applications.ports.inbound;
 
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
+import com.fiap.digidine.domain.model.ProductModel;
+import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.ProductDto;
+import java.util.UUID;
 
 public interface EditProductInputPort {
 
-    ProductEntity editProduct(ProductEntity product);
+    ProductModel editProduct(ProductDto product, UUID id);
 }

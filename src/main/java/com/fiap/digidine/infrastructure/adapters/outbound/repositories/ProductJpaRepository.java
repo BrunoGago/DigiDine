@@ -1,16 +1,18 @@
 package com.fiap.digidine.infrastructure.adapters.outbound.repositories;
 
-import com.fiap.digidine.domain.model.enums.CategoryEnum;
 import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
-public class ProductJpaRepository extends JpaRepository<ProductEntity, UUID> {
+@Repository
+public interface ProductJpaRepository extends JpaRepository<ProductEntity, UUID> {
 
-     ProductEntity deleteById(long id);
+     void deleteById(UUID id);
 
-     ProductEntity findById(long id);
+     Optional<ProductEntity> findById(UUID id);
 
 
 }
