@@ -1,19 +1,34 @@
 package com.fiap.digidine.infrastructure.adapters.inbound.controllers.mappers;
 
-
 import com.fiap.digidine.domain.model.CustomerModel;
 import com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos.CustomerDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface CustomerMapper {
+@Component
+public class CustomerMapper {
 
-    public static final CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
+    // Converte CustomerDto para CustomerModel
+    public static CustomerModel toCustomerModel(CustomerDto customerDto) {
+        if (customerDto == null) {
+            return null;
+        }
 
-    @Mapping(target = "id", ignore = true)
-    CustomerModel toCustomerModel(CustomerDto customerDto);
+        CustomerModel customerModel = new CustomerModel();
+        customerModel.setCpf(customerDto.getCpf());
+        customerModel.setName(customerDto.getName());
+        customerModel.setEmail(customerDto.getEmail());
 
-    CustomerDto toCustomerDto(CustomerModel customerModel);
+        return customerModel;
+    }
+
+    // Converte CustomerModel para CustomerDto
+    public static CustomerDto toCustomerDto(CustomerModel customerModel) {
+        if (customerModel == null) {
+            return null;
+        }
+
+        CustomerDto customerDto = new CustomerDto(customerModel.getName(), customerModel.getCpf(), customerModel.getEmail());
+
+        return customerDto;
+    }
 }
