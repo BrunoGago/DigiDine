@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: mysql:8.0
@@ -15,27 +16,20 @@ services:
     networks:
       - backend
 
-#  app:
-#    image: openjdk:21
-#    container_name: DigiDine
-#    depends_on:
-#      - db
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/DigiDine
-#      SPRING_DATASOURCE_USERNAME: admin
-#      SPRING_DATASOURCE_PASSWORD: admin
-#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-#    volumes:
-#      - .:/app
-#    working_dir: /app
-#    command: ./mvnw spring-boot:run
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - backend
-
-networks:
-  backend:
+  app:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: ./src/main/resources/application-docker.env
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
 
 volumes:
   db_data:
+
+networks:
+  backend:
