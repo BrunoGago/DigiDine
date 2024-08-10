@@ -1,10 +1,9 @@
 package com.fiap.digidine.applications.ports.outbound;
 
-import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.OrderEntity;
+import com.fiap.digidine.domain.model.OrderModel;
 
-import java.util.List;
+import java.util.UUID;
 
 public interface ListOrdersOutputPort {
-
-    List<OrderEntity> listOrders();
+    OrderModel listOrders(UUID id);
 }

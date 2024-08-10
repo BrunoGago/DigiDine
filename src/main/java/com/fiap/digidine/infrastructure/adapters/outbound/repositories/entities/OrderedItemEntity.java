@@ -3,6 +3,7 @@ package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TB_ORDERED_ITEM")
@@ -10,7 +11,7 @@ public class OrderedItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
     @ManyToOne
     private ProductEntity product;
     private Integer quantity;
@@ -18,17 +19,17 @@ public class OrderedItemEntity {
     public OrderedItemEntity() {
     }
 
-    public OrderedItemEntity(Long id, ProductEntity product, Integer quantity) {
+    public OrderedItemEntity(UUID id, ProductEntity product, Integer quantity) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

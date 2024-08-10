@@ -10,5 +10,4 @@ import java.util.UUID;
 public interface CustomerJpaRepository extends JpaRepository<CustomerEntity, UUID> {
 
     CustomerEntity findByCpf(String cpf);
-
 }
