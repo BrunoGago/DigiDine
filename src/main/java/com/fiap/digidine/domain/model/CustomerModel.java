@@ -5,11 +5,8 @@ import java.util.UUID;
 public class CustomerModel {
 
     private UUID id;
-
     private String cpf;
-
     private String name;
-
     private String email;
 
     public CustomerModel() {
