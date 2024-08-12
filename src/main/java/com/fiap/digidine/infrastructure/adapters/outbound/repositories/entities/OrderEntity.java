@@ -1,7 +1,6 @@
 package com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fiap.digidine.domain.model.CustomerModel;
 import com.fiap.digidine.domain.model.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 

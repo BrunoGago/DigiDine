@@ -1,29 +1,22 @@
-package com.fiap.digidine.infrastructure.adapters.inbound.controllers.dtos;
+package com.fiap.digidine.applications.dto;
 
 import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 public class CustomerDto {
 
-    private String name;
     @CPF
     private String cpf;
+
+    private String name;
 
     @Email
     private String email;
 
-    public CustomerDto(String name, String cpf, String email) {
-        this.name = name;
+    public CustomerDto(String cpf, String name, String email) {
         this.cpf = cpf;
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
+        this.email = email;
     }
 
     public String getCpf() {
@@ -32,6 +25,14 @@ public class CustomerDto {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

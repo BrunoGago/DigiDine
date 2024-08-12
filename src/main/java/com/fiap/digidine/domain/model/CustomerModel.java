@@ -16,7 +16,6 @@ public class CustomerModel {
     }
 
     public CustomerModel(UUID id, String cpf, String name, String email) {
-        this.id = id;
         this.cpf = cpf;
         this.name = name;
         this.email = email;

@@ -9,7 +9,6 @@ COPY target/*.jar app.jar
 
 # Defina variáveis de ambiente
 ENV DIGIDINE_PORT=8080
-ENV DIGIDINE_ENVIRONMENT=prod
 ENV DIGIDINE_DATABASE_URL=jdbc:mysql://db:3306/DigiDine
 ENV DIGIDINE_DATABASE_USER=admin
 ENV DIGIDINE_DATABASE_PASSWORD=admin
@@ -18,4 +17,4 @@ ENV DIGIDINE_DATABASE_PASSWORD=admin
 EXPOSE ${DIGIDINE_PORT}
 
 # Comando para executar a aplicação
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${DIGIDINE_ENVIRONMENT}", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
