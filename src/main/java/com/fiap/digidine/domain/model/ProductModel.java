@@ -3,20 +3,21 @@ package com.fiap.digidine.domain.model;
 import com.fiap.digidine.domain.model.enums.CategoryEnum;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class ProductModel {
 
-    private Long id;
+    private UUID id;
     private String name;
     private String description;
     private BigDecimal price;
     private CategoryEnum category;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -8,17 +8,17 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class ProductDto {
-    private Long id;
+    private UUID id;
     private String name;
     private BigDecimal price;
     private String description;
     private CategoryEnum category;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

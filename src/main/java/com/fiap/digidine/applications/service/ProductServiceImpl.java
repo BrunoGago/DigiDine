@@ -1,11 +1,9 @@
 package com.fiap.digidine.applications.service;
 
-import com.fiap.digidine.applications.dto.CustomerDto;
 import com.fiap.digidine.applications.dto.ProductDto;
-import com.fiap.digidine.applications.mappers.CustomerMapper;
-import com.fiap.digidine.applications.ports.inbound.CustomerServicePort;
+import com.fiap.digidine.applications.mappers.ProductMapper;
 import com.fiap.digidine.applications.ports.inbound.ProductServicePort;
-import com.fiap.digidine.domain.ports.outbound.CustomerRepositoryPort;
+import com.fiap.digidine.domain.ports.outbound.ProductRepositoryPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +13,30 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductServicePort {
 
     @Autowired
-    private CustomerRepositoryPort customerRepositoryPort;
+    private ProductRepositoryPort productRepositoryPort;
 
     @Autowired
-    private CustomerMapper customerMapper;
+    private ProductMapper productMapper;
 
     @Override
     public void create(ProductDto productDto) {
-
+        productRepositoryPort.create(productMapper.toModel(productDto));
     }
 
     @Override
     public ProductDto get(UUID id) {
-        return null;
+        return productMapper.toDto(productRepositoryPort.get(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id)));
+    }
+
+    @Override
+    public void update(UUID id, ProductDto productDto) {
+        productRepositoryPort.update(productMapper.toModel(id, productDto));
+    }
+
+    @Override
+    public void remove(UUID id) {
+        productRepositoryPort.remove(id);
     }
 
 }
