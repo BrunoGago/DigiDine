@@ -1,18 +1,40 @@
 package com.fiap.digidine.infrastructure.adapters.outbound.repositories.mappers;
 
 import com.fiap.digidine.domain.model.CustomerModel;
-import com.fiap.digidine.infrastructure.adapters.inbound.controllers.mappers.CustomerMapper;
 import com.fiap.digidine.infrastructure.adapters.outbound.repositories.entities.CustomerEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
-public interface CustomerEntityMapper {
+@Component
+public class CustomerEntityMapper {
 
-    public static final CustomerEntityMapper INSTANCE = Mappers.getMapper(CustomerEntityMapper.class);
+    // Mapeia um CustomerModel para um CustomerEntity
+    public CustomerEntity toEntity(CustomerModel model) {
+        if (model == null) {
+            return null;
+        }
 
-    CustomerEntity toCustomerEntity(CustomerModel customerModel);
+        CustomerEntity entity = new CustomerEntity();
+        entity.setId(model.getId());
+        entity.setCpf(model.getCpf());
+        entity.setName(model.getName());
+        entity.setEmail(model.getEmail());
 
-    CustomerModel toCustomerModel(CustomerEntity customerEntity);
+        return entity;
+    }
 
+    // Mapeia um CustomerEntity para um CustomerModel
+    public CustomerModel toModel(CustomerEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        CustomerModel model = new CustomerModel();
+        model.setId(entity.getId());
+        model.setCpf(entity.getCpf());
+        model.setName(entity.getName());
+        model.setEmail(entity.getEmail());
+
+        return model;
+    }
 }

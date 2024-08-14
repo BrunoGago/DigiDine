@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TB_PRODUCT")
@@ -12,17 +13,17 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private Double price;
     @Enumerated(EnumType.STRING)
     private CategoryEnum category;
 
     public ProductEntity() {
     }
 
-    public ProductEntity(Long id, String name, String description, BigDecimal price, CategoryEnum category) {
+    public ProductEntity(UUID id, String name, String description, Double price, CategoryEnum category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,11 +31,11 @@ public class ProductEntity {
         this.category = category;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -54,11 +55,11 @@ public class ProductEntity {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

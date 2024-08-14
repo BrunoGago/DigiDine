@@ -1,29 +1,24 @@
-package com.fiap.digidine.domain.model;
+package com.fiap.digidine.applications.dto;
 
-import java.util.UUID;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.validator.constraints.br.CPF;
 
-public class CustomerModel {
+public class CustomerDto {
 
-    private UUID id;
+    @CPF
     private String cpf;
+
     private String name;
+
+    @Email
     private String email;
 
-    public CustomerModel() {
-    }
-
-    public CustomerModel(UUID id, String cpf, String name, String email) {
+    public CustomerDto(String cpf, String name, String email) {
         this.cpf = cpf;
         this.name = name;
         this.email = email;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getCpf() {
