@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -51,11 +50,11 @@ public class ProductMapper {
         return dto;
     }
 
-    public List<ProductDto> toDtos(List<ProductModel> models) {
+    public List<ProductDto> toProductDtoList(List<ProductModel> models) {
         if (models == null) {
             return null;
         }
-        List<ProductDto> dtos = new ArrayList<>();
+        List<ProductDto> productDtoList = new ArrayList<>();
 
         for (ProductModel model : models)
         {
@@ -64,8 +63,8 @@ public class ProductMapper {
             dto.setDescription(model.getDescription());
             dto.setName(model.getName());
             dto.setPrice(model.getPrice());
-            dtos.add(dto);
+            productDtoList.add(dto);
         }
-        return dtos;
+        return productDtoList;
     }
 }

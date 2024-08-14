@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductServicePort {
 
     @Override
     public List<ProductDto> findByCategory(CategoryEnum category) {
-        return productMapper.toDtos((List<ProductModel>) productRepositoryPort.getByCategory(category)
+        return productMapper.toProductDtoList((List<ProductModel>) productRepositoryPort.getByCategory(category)
                 .orElseThrow(() -> new RuntimeException("Product not found in category: " + category)));
     }
 

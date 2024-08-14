@@ -32,4 +32,9 @@ public class CustomerRepositoryImpl implements CustomerRepositoryPort {
     public Optional<CustomerModel> findByCpf(String cpf) {
         return repository.findByCpf(cpf).map(mapper::toModel);
     }
+
+    @Override
+    public CustomerModel getById(UUID id){
+        return mapper.toModel(repository.getReferenceById(id));
+    }
 }
