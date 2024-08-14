@@ -5,7 +5,7 @@ O projeto abaixo foi elaborado pelos alunos do grupo 28 do curso de p√≥s gradua√
 ## MIRO:
 [Modelagem - MIRO](https://miro.com/app/board/uXjVK4JboJA=/)
 
-![alt text](image.png)
+![Imagem Event Storming](image.png)
 
 ## Buildando e rodando o projeto
 

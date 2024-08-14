@@ -16,14 +16,14 @@ public class ProductEntity {
     private UUID id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private Double price;
     @Enumerated(EnumType.STRING)
     private CategoryEnum category;
 
     public ProductEntity() {
     }
 
-    public ProductEntity(UUID id, String name, String description, BigDecimal price, CategoryEnum category) {
+    public ProductEntity(UUID id, String name, String description, Double price, CategoryEnum category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,11 +55,11 @@ public class ProductEntity {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

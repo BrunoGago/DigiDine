@@ -1,12 +1,13 @@
 package com.fiap.digidine.applications.adapters.inbound.rest;
 
-import com.fiap.digidine.applications.dto.CustomerDto;
 import com.fiap.digidine.applications.dto.ProductDto;
 import com.fiap.digidine.applications.ports.inbound.ProductServicePort;
+import com.fiap.digidine.domain.model.enums.CategoryEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,5 +47,16 @@ public class ProductController {
     public ResponseEntity<Void> remove(@PathVariable UUID id) {
         productServicePort.remove(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ProductDto>> getByCategory(@PathVariable CategoryEnum category) {
+        List<ProductDto> products = productServicePort.findByCategory(category);
+
+        if (products != null && !products.isEmpty()) {
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
