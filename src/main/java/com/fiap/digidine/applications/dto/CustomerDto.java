@@ -1,6 +1,8 @@
 package com.fiap.digidine.applications.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
 public class CustomerDto {
