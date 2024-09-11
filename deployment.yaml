@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digidine-deployment
+  labels:
+    app: digidine
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: digidine
+  template:
+    metadata:
+      labels:
+        app: digidine
+    spec:
+      containers:
+      - name: digidine-container
+        image: your-docker-image:latest
+        ports:
+        - containerPort: 8080
