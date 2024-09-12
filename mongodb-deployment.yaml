@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digidine-deployment
+  name: mongodb-deployment
   labels:
-    app: digidine
+    app: mongodb
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: digidine
+      app: mongodb
   template:
     metadata:
       labels:
-        app: digidine
+        app: mongodb
     spec:
       containers:
       - name: mongodb
