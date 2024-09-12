@@ -15,21 +15,14 @@ spec:
         app: digidine
     spec:
       containers:
-      - name: mongodb
-        image: mongo:4.4
+      - name: digidine-container
+        image: your-docker-image:latest
         ports:
-        - containerPort: 27017
-        env:
-        - name: MONGO_INITDB_DATABASE
-          value: "DigiDine"
-        - name: MONGO_INITDB_ROOT_USERNAME
-          value: "admin"
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          value: "admin"
-        volumeMounts:
-        - name: mongodb-persistent-storage
-          mountPath: /data/db
-      volumes:
-      - name: mongodb-persistent-storage
-        persistentVolumeClaim:
-          claimName: mongodb-pvc
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "200Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
