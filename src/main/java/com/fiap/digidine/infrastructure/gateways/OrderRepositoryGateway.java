@@ -22,7 +22,6 @@ public class OrderRepositoryGateway implements OrderGateway {
     private final OrderMongoDBRepository orderRepository;
     private final OrderEntityMapper orderEntityMapper;
 
-    @Autowired
     public OrderRepositoryGateway(OrderMongoDBRepository ordersRepository, OrderEntityMapper orderEntityMapper) {
         this.orderRepository = ordersRepository;
         this.orderEntityMapper = orderEntityMapper;

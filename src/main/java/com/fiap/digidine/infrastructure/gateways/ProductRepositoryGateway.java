@@ -15,7 +15,6 @@ public class ProductRepositoryGateway implements ProductGateway {
     private final ProductMongoDBRepository productRepository;
     private final ProductEntityMapper productEntityMapper;
 
-    @Autowired
     public ProductRepositoryGateway(ProductMongoDBRepository productRepository, ProductEntityMapper productEntityMapper) {
         this.productRepository = productRepository;
         this.productEntityMapper = productEntityMapper;

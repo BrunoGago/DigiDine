@@ -14,7 +14,6 @@ public class CustomerRepositoryGateway implements CustomerGateway {
     private final CustomerMongoDBRepository customerRepository;
     private final CustomerEntityMapper customerEntityMapper;
 
-    @Autowired
     public CustomerRepositoryGateway(CustomerMongoDBRepository customerRepository, CustomerEntityMapper customerEntityMapper) {
         this.customerRepository = customerRepository;
         this.customerEntityMapper = customerEntityMapper;
