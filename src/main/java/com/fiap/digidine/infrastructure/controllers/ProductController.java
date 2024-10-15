@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody ProductRequest request) {
+    public ResponseEntity<String> create(@RequestBody ProductRequest request) {
         try{
             productsGateway.create(productDTOMapper.toProduct(request));
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -36,9 +36,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable String id) {
+    public ResponseEntity<Object> getById(@PathVariable String productId) {
         try{
-            Product product = productsGateway.getById(id);
+            Product product = productsGateway.getById(productId);
             return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
@@ -56,9 +56,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remove(@PathVariable String id) {
+    public ResponseEntity<Void> remove(@PathVariable String productId) {
         try{
-            productsGateway.remove(id);
+            productsGateway.remove(productId);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -74,5 +74,4 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
 }

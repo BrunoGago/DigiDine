@@ -34,10 +34,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody OrderRequest request) {
+    public ResponseEntity<String> create(@RequestBody OrderRequest request) {
         try{
-            orderGateway.createOrder(orderDTOMapper.toOrder(request));
-            return ResponseEntity.status(HttpStatus.OK).build();
+            String orderNumber = orderGateway.createOrder(orderDTOMapper.toOrder(request));
+            return ResponseEntity.status(HttpStatus.OK).body(orderNumber);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

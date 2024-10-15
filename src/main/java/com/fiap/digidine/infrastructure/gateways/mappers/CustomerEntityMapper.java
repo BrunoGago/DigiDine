@@ -13,7 +13,7 @@ public class CustomerEntityMapper {
     }
 
     public Customer toDomain(CustomerEntity entity){
-        return new Customer(entity.getCpf(), entity.getName(), entity.getCpf());
+        return new Customer(entity.getCpf(), entity.getName(), entity.getEmail());
     }
 
     public List<Customer> toDomains(List<CustomerEntity> entities){

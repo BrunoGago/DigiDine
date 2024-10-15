@@ -25,4 +25,6 @@ spec:
         - name: ME_CONFIG_MONGODB_ADMINPASSWORD
           value: "admin"
         - name: ME_CONFIG_MONGODB_SERVER
-          value: "mongodb-service"
+          value: "mongo"
+        - name: ME_CONFIG_BASICAUTH 
+          value: "false"

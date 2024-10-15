@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface ProductGateway {
 
-    void create(Product product);
-    Product getById(String id);
-    Product updateById(String id, Product request);
-    void remove(String id);
+    String create(Product product);
+    Product getById(String productId);
+    Product updateById(String productId, Product request);
+    void remove(String productId);
     List<Product> findByCategory(Category category);
     List<Product> list();
 }

@@ -21,49 +21,61 @@ public class ProductRepositoryGateway implements ProductGateway {
     }
 
     @Override
-    public void create(Product product) {
-        productEntityMapper.toDomain(productRepository.save(productEntityMapper.toEntity(product)));
+    public String create(Product product) {
+        ProductEntity productEntity = productEntityMapper.toEntity(product);
+        productRepository.save(productEntity);
+
+        return productEntity.getId();
     }
 
     @Override
-    public Product getById(String id) {
-        ProductEntity productEntity = productRepository.findById(id).orElse(null);
-        if (productEntity == null) {
-            throw new IllegalArgumentException();
-        }
-        return productEntityMapper.toDomain(productEntity);
-    }
+    public Product getById(String productId) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
 
-    @Override
-    public Product updateById(String id, Product product) {
-        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
-
-        Product existingProduct = optionalProductEntity
-                .map(productEntityMapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não cadastrado anteriormente!"));
-
-        // Atualizando os dados do produto
-        existingProduct.setCategory(product.getCategory());
-        existingProduct.setDescription(product.getDescription());
-        existingProduct.setName(product.getName());
-        existingProduct.setPrice(product.getPrice());
-
-        // Salvando a entidade atualizada
-        productRepository.save(productEntityMapper.toEntity(existingProduct));
-
-        return existingProduct;
-    }
-
-    @Override
-    public void remove(String id) {
-        Optional<Product> existingOptionalProduct = productEntityMapper.toOptionalDomain(productRepository.findById(id));
-
-        if(existingOptionalProduct == null)
+        if(optionalProductEntity.isEmpty())
         {
             throw new IllegalArgumentException("Produto não cadastrado anteriormente!");
         }
 
-        productRepository.deleteById(id);
+        return productEntityMapper.toDomain(optionalProductEntity.get());
+    }
+
+    @Override
+    public Product updateById(String id, Product product) {
+        // Faça uso da productRepository para buscar o produto pelo id
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
+
+        // Verificando se o produto existe
+        if(optionalProductEntity.isEmpty())
+        {
+            throw new IllegalArgumentException("Produto não cadastrado anteriormente!");
+        }
+
+        // Atualizando os dados do produto
+        ProductEntity productEntity = optionalProductEntity.get();
+        productEntity.setCategory(product.getCategory());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setName(product.getName());
+        productEntity.setPrice(product.getPrice());
+
+        // Salvando a entidade atualizada
+        productRepository.save(productEntity);
+
+        return productEntityMapper.toDomain(productEntity);
+    }
+
+    @Override
+    public void remove(String productId) {
+        // Faça uso da productRepository para buscar o produto pelo id
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+
+        // Verificando se o produto existe
+        if(optionalProductEntity.isEmpty())
+        {
+            throw new IllegalArgumentException("Produto não cadastrado anteriormente!");
+        }
+
+        productRepository.deleteById(productId);
     }
 
     @Override
@@ -78,9 +90,13 @@ public class ProductRepositoryGateway implements ProductGateway {
     @Override
     public List<Product> list() {
         List<ProductEntity> productEntities = productRepository.findAll();
-        if (productEntities == null) {
-            throw new IllegalArgumentException();
+
+        // Verificando se há produtos cadastrados
+        if(productEntities.isEmpty())
+        {
+            throw new IllegalArgumentException("Produto não cadastrado anteriormente!");
         }
+
         return productEntityMapper.toDomains(productEntities);
     }
 }

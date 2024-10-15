@@ -29,46 +29,51 @@ public class OrderRepositoryGateway implements OrderGateway {
 
 
     @Override
-    public void createOrder(Order order) {
+    public String createOrder(Order order) {
         Order baseOrder = new Order();
 
-        order.setOrderStatus(OrderStatus.RECEBIDO);
+        baseOrder.setOrderStatus(OrderStatus.RECEBIDO);
+        baseOrder.setCreatedAt(LocalDateTime.now());
+        baseOrder.setOrderNumber(UUID.randomUUID().toString());
+        baseOrder.setCustomer(order.getCustomer());
+        baseOrder.setProducts(order.getProducts());
+        baseOrder.setTotalPrice(calculatePrice(order.getProducts()));
 
-        orderEntityMapper.toDomain(orderRepository.save(orderEntityMapper.toEntity(order)));
+        orderEntityMapper.toDomain(orderRepository.save(orderEntityMapper.toEntity(baseOrder)));
+
+        return baseOrder.getOrderNumber();
     }
 
     @Override
-    public Order updateOrderStatus(String id, OrderStatus status) {
-        Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(id);
+    public Order updateOrderStatus(String orderNumber, OrderStatus status) {
+        OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
-        Order existingOrder = optionalOrderEntity
-                .map(orderEntityMapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não cadastrado anteriormente!"));
+        if(orderEntity == null) {
+            throw new IllegalArgumentException("Pedido não cadastrado anteriormente!");
+        }
 
-        // Atualizando os dados do produto
-        existingOrder.setOrderStatus(status);
+        orderEntity.setStatus(status);
 
         // Salvando a entidade atualizada
-        orderRepository.save(orderEntityMapper.toEntity(existingOrder));
+        orderRepository.save(orderEntity);
 
-        return existingOrder;
+        return orderEntityMapper.toDomain(orderEntity);
     }
 
     @Override
-    public Order updateOrder(String id, Order order) {
-        Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(id);
+    public Order updateOrder(String orderNumber, Order order) {
+        OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
-        Order existingOrder = optionalOrderEntity
-                .map(orderEntityMapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não cadastrado anteriormente!"));
+        if(orderEntity == null) {
+            throw new IllegalArgumentException("Pedido não cadastrado anteriormente!");
+        }
 
-        // Atualizando os dados do produto
+        // Atualizando os dados do pedido
+        Order existingOrder = orderEntityMapper.toDomain(orderEntity);
         existingOrder.setCustomer(order.getCustomer());
         existingOrder.setProducts(order.getProducts());
-        existingOrder.setOrderStatus(order.getOrderStatus());
-        existingOrder.setTotalPrice(order.getTotalPrice());
+        existingOrder.setTotalPrice(calculatePrice(order.getProducts()));
 
-        // Salvando a entidade atualizada
         orderRepository.save(orderEntityMapper.toEntity(existingOrder));
 
         return existingOrder;
@@ -93,7 +98,10 @@ public class OrderRepositoryGateway implements OrderGateway {
         return orders;
     }
 
-    // Define a prioridade dos status
+    /*
+     * @return Retorna a prioridade de status de um pedido
+     * @param order Pedido a ser verificado
+     */
     private int getStatusPriority(Order order) {
         switch (order.getOrderStatus()) {
             case OrderStatus.PRONTO: return 1;
@@ -110,6 +118,10 @@ public class OrderRepositoryGateway implements OrderGateway {
         return order.getOrderNumber();
     }
 
+    /*
+     * @return Retorna o preço total dos produtos
+     * @param products Lista de produtos
+     */
     @Override
     public Double calculatePrice(List<Product> products) {
         double totalPrice = 0.0;
@@ -122,11 +134,13 @@ public class OrderRepositoryGateway implements OrderGateway {
 
     @Override
     public OrderStatus getOrderStatus(String orderNumber) {
-        Optional<OrderEntity> optionalOrderEntity = orderRepository.findById(orderNumber);
+        OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
-        Order order = optionalOrderEntity
-                .map(orderEntityMapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Pedido não cadastrado anteriormente!"));
+        if(orderEntity == null) {
+            throw new IllegalArgumentException("Pedido não cadastrado anteriormente!");
+        }
+
+        Order order = orderEntityMapper.toDomain(orderEntity);
 
         return order.getOrderStatus();
     }

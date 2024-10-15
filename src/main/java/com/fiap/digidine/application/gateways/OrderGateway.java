@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderGateway {
 
-    void createOrder(Order order);
+    String createOrder(Order order);
     Order updateOrderStatus(String id, OrderStatus status);
     Order updateOrder(String orderNumber, Order order);
     List<Order> listOrders();
