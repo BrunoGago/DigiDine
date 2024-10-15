@@ -20,18 +20,18 @@ public class OrderEntity {
     @DBRef // Indica que é uma lista de referências para documentos (ProductEntity)
     private List<ProductEntity> products;
     private double totalPrice;
-    private OrderStatus orderStatus;
+    private OrderStatus status;
     private LocalDateTime createdAt;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(String orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+    public OrderEntity(String orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus status, LocalDateTime createdAt) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
         this.totalPrice = totalPrice;
-        this.orderStatus = orderStatus;
+        this.status = status;
         this.createdAt = createdAt;
     }
 
@@ -75,12 +75,12 @@ public class OrderEntity {
         this.totalPrice = totalPrice;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreatedAt() {

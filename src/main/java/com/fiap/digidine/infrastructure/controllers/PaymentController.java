@@ -1,6 +1,7 @@
 package com.fiap.digidine.infrastructure.controllers;
 
 import com.fiap.digidine.application.gateways.PaymentGateway;
+import com.fiap.digidine.application.usecases.GetPaymentStatusUseCase;
 import com.fiap.digidine.domain.entities.Payment;
 import com.fiap.digidine.infrastructure.controllers.dtos.PaymentResponse;
 import com.fiap.digidine.infrastructure.controllers.mappers.PaymentDTOMapper;
@@ -15,24 +16,21 @@ import java.util.List;
 @RequestMapping("/api/v1/payments")
 public class PaymentController {
 
-    private final PaymentGateway paymentGateway;
+    private final GetPaymentStatusUseCase paymentStatusUseCase;
     private final PaymentDTOMapper paymentDTOMapper;
 
-    public PaymentController(PaymentGateway paymentGateway, PaymentDTOMapper paymentDTOMapper){
-        this.paymentGateway = paymentGateway;
+    public PaymentController(GetPaymentStatusUseCase paymentStatusUseCase, PaymentDTOMapper paymentDTOMapper){
+        this.paymentStatusUseCase = paymentStatusUseCase;
         this.paymentDTOMapper = paymentDTOMapper;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentResponse> getPaymentStatusByOrderId(@PathVariable String orderId) {
         try{
-            Payment payment = paymentGateway.getStatus(orderId);
+            Payment payment = paymentStatusUseCase.getPaymentStatus(orderId);
             return ResponseEntity.status(HttpStatus.OK).body(paymentDTOMapper.toResponse(payment));
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
-
-
 }

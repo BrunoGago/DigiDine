@@ -24,7 +24,7 @@ public class OrderEntityMapper {
     }
 
     public Order toDomain(OrderEntity entity){
-        return new Order(entity.getOrderNumber(), customerEntityMapper.toDomain(entity.getCustomer()), productEntityMapper.toDomains(entity.getProducts()), entity.getTotalPrice(), entity.getOrderStatus(), entity.getCreatedAt());
+        return new Order(entity.getOrderNumber(), customerEntityMapper.toDomain(entity.getCustomer()), productEntityMapper.toDomains(entity.getProducts()), entity.getTotalPrice(), entity.getStatus(), entity.getCreatedAt());
     }
 
     public Optional<Order> toOptionalDomain(Optional<OrderEntity> optionalEntity) {
@@ -40,7 +40,7 @@ public class OrderEntityMapper {
                     customerEntityMapper.toDomain(entity.getCustomer()),
                     productEntityMapper.toDomains(entity.getProducts()),
                     entity.getTotalPrice(),
-                    entity.getOrderStatus(),
+                    entity.getStatus(),
                     entity.getCreatedAt()
             );
             orders.add(order);

@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -25,7 +24,6 @@ public class OrderController {
     private final OrderGateway orderGateway;
     private final OrderDTOMapper orderDTOMapper;
     private final ProductDTOMapper productDTOMapper;
-
     private final CustomerDTOMapper customerDTOMapper;
 
     public OrderController(OrderGateway orderGateway, OrderDTOMapper orderDTOMapper, ProductDTOMapper productDTOMapper, CustomerDTOMapper customerDTOMapper){

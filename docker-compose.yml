@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
     networks:
       - backend
-    command: [ "./wait-for-it.sh", "mongo", "27017", "--", "java", "-jar", "your-app.jar" ]
+    command:  "./wait-for-it.sh mongo 27017 --java -jar app.jar"
 
 # Define named volumes
 volumes:
