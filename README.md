@@ -40,3 +40,7 @@ O projeto abaixo foi elaborado pelos alunos do grupo 28 do curso de pós gradua�
 1. Para acessar a documentação do Swagger, inicie a aplicação e acesse a seguinte url:
 - `{url do digidine-service}/swagger-ui/index.html#/`
 
+## Video:
+
+1. Para acessar o vídeo demonstrando o código, acesse a seguinte url:
+- [FIAP - Projeto Fase 2](https://youtu.be/YoemkIAEmGY)
