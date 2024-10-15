@@ -22,21 +22,21 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Void> registerCustomer(@RequestBody CustomerRequest request){
         try{
-            Customer customer = customersGateway.register(customerDTOMapper.toCustomer(request));
+            customersGateway.register(customerDTOMapper.toCustomer(request));
+            return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<Object> getCustomerByCpf(@PathVariable String cpf) {
-        Customer customer;
         try{
-            customer = customersGateway.getByCpf(cpf);
+            Customer customer = customersGateway.getByCpf(cpf);
+            return ResponseEntity.status(HttpStatus.OK).body(customer);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(customer);
+
     }
 }

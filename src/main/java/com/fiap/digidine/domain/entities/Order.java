@@ -2,23 +2,37 @@ package com.fiap.digidine.domain.entities;
 
 import com.fiap.digidine.domain.entities.enums.OrderStatus;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Order {
+
+    private String orderNumber;
     private Customer customer;
     private List<Product> products;
     private double totalPrice;
     private OrderStatus orderStatus;
+    private LocalDateTime createdAt;
 
     public Order(){
 
     }
 
-    public Order(Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus) {
+    public Order(String orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+        this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
+        this.createdAt = createdAt;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Customer getCustomer() {
@@ -52,4 +66,13 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
 }

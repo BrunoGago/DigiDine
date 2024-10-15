@@ -3,19 +3,19 @@ package com.fiap.digidine.infrastructure.gateways;
 import com.fiap.digidine.application.gateways.CustomerGateway;
 import com.fiap.digidine.domain.entities.Customer;
 import com.fiap.digidine.infrastructure.gateways.mappers.CustomerEntityMapper;
-import com.fiap.digidine.infrastructure.persistence.CustomerRepository;
-import com.fiap.digidine.infrastructure.persistence.entities.CustomerEntity;
+import com.fiap.digidine.infrastructure.persistence.CustomerMongoDBRepository;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.CustomerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class CustomerRepositoryGateway implements CustomerGateway {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerMongoDBRepository customerRepository;
     private final CustomerEntityMapper customerEntityMapper;
 
     @Autowired
-    public CustomerRepositoryGateway(CustomerRepository customerRepository, CustomerEntityMapper customerEntityMapper) {
+    public CustomerRepositoryGateway(CustomerMongoDBRepository customerRepository, CustomerEntityMapper customerEntityMapper) {
         this.customerRepository = customerRepository;
         this.customerEntityMapper = customerEntityMapper;
     }

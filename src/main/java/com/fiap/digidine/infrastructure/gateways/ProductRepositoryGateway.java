@@ -4,19 +4,19 @@ import com.fiap.digidine.application.gateways.ProductGateway;
 import com.fiap.digidine.domain.entities.Product;
 import com.fiap.digidine.domain.entities.enums.Category;
 import com.fiap.digidine.infrastructure.gateways.mappers.ProductEntityMapper;
-import com.fiap.digidine.infrastructure.persistence.ProductRepository;
-import com.fiap.digidine.infrastructure.persistence.entities.ProductEntity;
+import com.fiap.digidine.infrastructure.persistence.ProductMongoDBRepository;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 public class ProductRepositoryGateway implements ProductGateway {
-    private final ProductRepository productRepository;
+    private final ProductMongoDBRepository productRepository;
     private final ProductEntityMapper productEntityMapper;
 
     @Autowired
-    public ProductRepositoryGateway(ProductRepository productRepository, ProductEntityMapper productEntityMapper) {
+    public ProductRepositoryGateway(ProductMongoDBRepository productRepository, ProductEntityMapper productEntityMapper) {
         this.productRepository = productRepository;
         this.productEntityMapper = productEntityMapper;
     }

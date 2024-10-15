@@ -1,7 +1,7 @@
 package com.fiap.digidine.infrastructure.gateways.mappers;
 
 import com.fiap.digidine.domain.entities.Order;
-import com.fiap.digidine.infrastructure.persistence.entities.OrderEntity;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.OrderEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,11 @@ public class OrderEntityMapper {
 
     public OrderEntity toEntity(Order order){
 
-        return new OrderEntity(customerEntityMapper.toEntity(order.getCustomer()), productEntityMapper.toEntities(order.getProducts()), order.getTotalPrice(), order.getOrderStatus());
+        return new OrderEntity(order.getOrderNumber(), customerEntityMapper.toEntity(order.getCustomer()), productEntityMapper.toEntities(order.getProducts()), order.getTotalPrice(), order.getOrderStatus(), order.getCreatedAt());
     }
 
     public Order toDomain(OrderEntity entity){
-        return new Order(customerEntityMapper.toDomain(entity.getCustomer()), productEntityMapper.toDomains(entity.getProducts()), entity.getTotalPrice(), entity.getOrderStatus());
+        return new Order(entity.getOrderNumber(), customerEntityMapper.toDomain(entity.getCustomer()), productEntityMapper.toDomains(entity.getProducts()), entity.getTotalPrice(), entity.getOrderStatus(), entity.getCreatedAt());
     }
 
     public Optional<Order> toOptionalDomain(Optional<OrderEntity> optionalEntity) {
@@ -36,10 +36,12 @@ public class OrderEntityMapper {
 
         for (OrderEntity entity : entities) {
             Order order = new Order(
+                    entity.getId(),
                     customerEntityMapper.toDomain(entity.getCustomer()),
                     productEntityMapper.toDomains(entity.getProducts()),
                     entity.getTotalPrice(),
-                    entity.getOrderStatus()
+                    entity.getOrderStatus(),
+                    entity.getCreatedAt()
             );
             orders.add(order);
         }

@@ -24,14 +24,15 @@ public class PaymentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PaymentResponse> getStatusByOrderId(@PathVariable String orderId) {
-        Payment payment;
+    public ResponseEntity<PaymentResponse> getPaymentStatusByOrderId(@PathVariable String orderId) {
         try{
-            payment = paymentGateway.getStatus(orderId);
+            Payment payment = paymentGateway.getStatus(orderId);
+            return ResponseEntity.status(HttpStatus.OK).body(paymentDTOMapper.toResponse(payment));
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(paymentDTOMapper.toResponse(payment));
     }
+
+
 
 }

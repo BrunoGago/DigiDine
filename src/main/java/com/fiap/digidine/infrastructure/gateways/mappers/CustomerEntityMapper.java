@@ -1,7 +1,7 @@
 package com.fiap.digidine.infrastructure.gateways.mappers;
 
 import com.fiap.digidine.domain.entities.Customer;
-import com.fiap.digidine.infrastructure.persistence.entities.CustomerEntity;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.CustomerEntity;
 
 import java.util.ArrayList;
 import java.util.List;

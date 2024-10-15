@@ -29,53 +29,50 @@ public class ProductController {
     public ResponseEntity<Void> create(@RequestBody ProductRequest request) {
         try{
             productsGateway.create(productDTOMapper.toProduct(request));
+            return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable String id) {
-        Product product;
         try{
-            product = productsGateway.getById(id);
+            Product product = productsGateway.getById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @RequestBody ProductRequest request) {
-        Product product;
         try{
-            product = productsGateway.updateById(id, productDTOMapper.toProduct(request));
+            Product product = productsGateway.updateById(id, productDTOMapper.toProduct(request));
+            return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(product);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remove(@PathVariable String id) {
         try{
             productsGateway.remove(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/category")
     public ResponseEntity<List<ProductResponse>> listProductsByCategory(@RequestParam("category") Category category) {
-        List<Product> products;
         try{
-            products = productsGateway.findByCategory(category);
+            List<Product> products = productsGateway.findByCategory(category);
+            return ResponseEntity.status(HttpStatus.OK).body(productDTOMapper.toResponses(products));
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(productDTOMapper.toResponses(products));
     }
 
 }

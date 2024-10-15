@@ -22,4 +22,15 @@ public class ProductDTOMapper {
     public Product toProduct(ProductRequest request){
         return new Product(request.name(), request.description(), request.price(), request.category());
     }
+
+    public List<Product> toProducts(List<ProductRequest> requests) {
+        return requests.stream()
+                .map(request -> new Product(
+                        request.name(),
+                        request.description(),
+                        request.price(),
+                        request.category()
+                ))
+                .collect(Collectors.toList());
+    }
 }

@@ -1,10 +1,11 @@
-package com.fiap.digidine.infrastructure.persistence.entities;
+package com.fiap.digidine.infrastructure.persistence.entities.mongodb;
 
 import com.fiap.digidine.domain.entities.enums.OrderStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection = "orders") // Define a coleção do MongoDB
@@ -13,23 +14,33 @@ public class OrderEntity {
     @Id // Define o identificador do documento
     private String id;
 
+    private String orderNumber;
     @DBRef // Indica que é uma referência a outro documento (CustomerEntity)
     private CustomerEntity customer;
-
     @DBRef // Indica que é uma lista de referências para documentos (ProductEntity)
     private List<ProductEntity> products;
-
     private double totalPrice;
     private OrderStatus orderStatus;
+    private LocalDateTime createdAt;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus orderStatus) {
+    public OrderEntity(String orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+        this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
+        this.createdAt = createdAt;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getId() {
@@ -70,5 +81,13 @@ public class OrderEntity {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

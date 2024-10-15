@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class OrderDTOMapper {
 
     public OrderResponse toResponse(Order order){
-        return new OrderResponse(order.getCustomer(), order.getProducts(), order.getTotalPrice(), order.getOrderStatus());
+        return new OrderResponse(order.getOrderNumber(), order.getCustomer(), order.getProducts(), order.getTotalPrice(), order.getOrderStatus(), order.getCreatedAt());
     }
 
     public List<OrderResponse> toResponses(List<Order> orders) {
@@ -20,7 +20,7 @@ public class OrderDTOMapper {
     }
 
     public Order toOrder(OrderRequest request){
-        return new Order(request.customer(), request.products(), request.totalPrice(), request.orderStatus());
+        return new Order(request.orderNumber(), request.customer(), request.products(), request.totalPrice(), request.orderStatus(), request.createdAt());
     }
 
 }

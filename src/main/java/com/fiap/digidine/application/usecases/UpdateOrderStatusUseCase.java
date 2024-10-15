@@ -12,7 +12,7 @@ public class UpdateOrderStatusUseCase {
         this.ordersGateway = ordersGateway;
     }
 
-    public Order updateOrderStatus(String id, OrderStatus status) {
-        return ordersGateway.updateOrderStatus(id, status);
+    public Order updateOrderStatus(String id, OrderStatus orderStatus) {
+        return ordersGateway.updateOrderStatus(id, orderStatus);
     }
 }

@@ -1,4 +1,4 @@
-package com.fiap.digidine.infrastructure.persistence.entities;
+package com.fiap.digidine.infrastructure.persistence.entities.mongodb;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

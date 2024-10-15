@@ -1,4 +1,4 @@
-package com.fiap.digidine.infrastructure.persistence.entities;
+package com.fiap.digidine.infrastructure.persistence.entities.mongodb;
 
 import com.fiap.digidine.domain.entities.enums.Category;
 import org.springframework.data.annotation.Id;

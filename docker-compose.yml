@@ -1,24 +1,35 @@
 version: '3.8'
 
 services:
-  db:
-    image: mysql:8.0
-    container_name: mysql_db
-    environment:
-      MYSQL_DATABASE: DigiDine
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
+  mongo:
+    image: mongo:latest
+    restart: always
     ports:
-      - "3306:3306"
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "admin"
     volumes:
-      - db_data:/var/lib/mysql
+      - mongodb_data:/data/db
     networks:
       - backend
 
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+      - backend
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "admin"
+      ME_CONFIG_MONGODB_URL: "mongodb://root:admin@mongo:27017/"
+      ME_CONFIG_BASICAUTH: "false"
+
   app:
     depends_on:
-      - db
+      - mongo
     build:
       context: .
       dockerfile: Dockerfile
@@ -28,9 +39,12 @@ services:
     restart: unless-stopped
     networks:
       - backend
+    command: [ "./wait-for-it.sh", "mongo", "27017", "--", "java", "-jar", "your-app.jar" ]
 
+# Define named volumes
 volumes:
-  db_data:
+  mongodb_data:
+    driver: local
 
 networks:
   backend:
