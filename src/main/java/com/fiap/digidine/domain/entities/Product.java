@@ -3,6 +3,8 @@ package com.fiap.digidine.domain.entities;
 import com.fiap.digidine.domain.entities.enums.Category;
 
 public class Product {
+
+    private Long productNumber;
     private String name;
     private String description;
     private Double price;
@@ -11,11 +13,20 @@ public class Product {
     public Product(){
 
     }
-    public Product(String name, String description, Double price, Category category) {
+    public Product(Long productNumber, String name, String description, Double price, Category category) {
+        this.productNumber = productNumber;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+    }
+
+    public Long getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(Long productNumber) {
+        this.productNumber = productNumber;
     }
 
     public String getName() {

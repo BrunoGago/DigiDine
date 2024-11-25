@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Order {
 
-    private String orderNumber;
+    private Long orderNumber;
     private Customer customer;
     private List<Product> products;
     private double totalPrice;
@@ -18,7 +18,7 @@ public class Order {
 
     }
 
-    public Order(String orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+    public Order(Long orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
@@ -27,11 +27,11 @@ public class Order {
         this.createdAt = createdAt;
     }
 
-    public String getOrderNumber() {
+    public Long getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
+    public void setOrderNumber(Long orderNumber) {
         this.orderNumber = orderNumber;
     }
 

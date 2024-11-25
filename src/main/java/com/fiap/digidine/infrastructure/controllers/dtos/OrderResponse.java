@@ -7,5 +7,5 @@ import com.fiap.digidine.domain.entities.enums.OrderStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record OrderResponse(String orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+public record OrderResponse(long orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
 }

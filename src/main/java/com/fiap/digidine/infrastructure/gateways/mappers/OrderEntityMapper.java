@@ -36,7 +36,7 @@ public class OrderEntityMapper {
 
         for (OrderEntity entity : entities) {
             Order order = new Order(
-                    entity.getId(),
+                    entity.getOrderNumber(),
                     customerEntityMapper.toDomain(entity.getCustomer()),
                     productEntityMapper.toDomains(entity.getProducts()),
                     entity.getTotalPrice(),

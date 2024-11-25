@@ -10,7 +10,7 @@ import java.util.Optional;
 public class ProductEntityMapper {
 
     public ProductEntity toEntity(Product product){
-        return new ProductEntity(product.getName(), product.getDescription(), product.getPrice(), product.getCategory());
+        return new ProductEntity(product.getProductNumber(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory());
     }
 
     public List<ProductEntity> toEntities(List<Product> products){
@@ -18,6 +18,7 @@ public class ProductEntityMapper {
 
         for (Product product : products) {
             ProductEntity productEntity = new ProductEntity(
+                    product.getProductNumber(),
                     product.getName(),
                     product.getDescription(),
                     product.getPrice(),
@@ -29,7 +30,7 @@ public class ProductEntityMapper {
     }
 
     public Product toDomain(ProductEntity entity){
-        return new Product(entity.getName(), entity.getDescription(), entity.getPrice(), entity.getCategory());
+        return new Product(entity.getProductNumber(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getCategory());
     }
 
     public Optional<Product> toOptionalDomain(Optional<ProductEntity> optionalEntity) {
@@ -41,6 +42,7 @@ public class ProductEntityMapper {
 
         for (ProductEntity entity : entities) {
             Product product = new Product(
+                    entity.getProductNumber(),
                     entity.getName(),
                     entity.getDescription(),
                     entity.getPrice(),

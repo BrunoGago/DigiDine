@@ -35,30 +35,30 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable String productId) {
+    @GetMapping("/{productNumber}")
+    public ResponseEntity<Object> getById(@PathVariable long productNumber) {
         try{
-            Product product = productsGateway.getById(productId);
+            Product product = productsGateway.getByProductNumber(productNumber);
             return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody ProductRequest request) {
+    @PutMapping("/{productNumber}")
+    public ResponseEntity<Object> update(@PathVariable long productNumber, @RequestBody ProductRequest request) {
         try{
-            Product product = productsGateway.updateById(id, productDTOMapper.toProduct(request));
+            Product product = productsGateway.updateByProductNumber(productNumber, productDTOMapper.toProduct(request));
             return ResponseEntity.status(HttpStatus.OK).body(product);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remove(@PathVariable String productId) {
+    @DeleteMapping("/{productNumber}")
+    public ResponseEntity<Void> remove(@PathVariable long productNumber) {
         try{
-            productsGateway.remove(productId);
+            productsGateway.removeByProductNumber(productNumber);
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

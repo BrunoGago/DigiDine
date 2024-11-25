@@ -38,7 +38,7 @@ O projeto abaixo foi elaborado pelos alunos do grupo 28 do curso de pós gradua�
 ## Documentação Swagger:
 
 1. Para acessar a documentação do Swagger, inicie a aplicação e acesse a seguinte url:
-- `{url do digidine-service}/swagger-ui/index.html#/`
+- `localhost:8080/swagger-ui/index.html`
 
 ## Video:
 

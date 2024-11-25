@@ -9,11 +9,11 @@ import java.util.List;
 public class CustomerEntityMapper {
 
     public CustomerEntity toEntity(Customer customer){
-        return new CustomerEntity(customer.getCpf(), customer.getName(), customer.getEmail());
+        return new CustomerEntity(customer.getCustomerNumber(), customer.getCpf(), customer.getName(), customer.getEmail());
     }
 
     public Customer toDomain(CustomerEntity entity){
-        return new Customer(entity.getCpf(), entity.getName(), entity.getEmail());
+        return new Customer(entity.getCustomerNumber(),entity.getCpf(), entity.getName(), entity.getEmail());
     }
 
     public List<Customer> toDomains(List<CustomerEntity> entities){
@@ -21,6 +21,7 @@ public class CustomerEntityMapper {
 
         for (CustomerEntity entity : entities) {
             Customer customer = new Customer(
+                    entity.getCustomerNumber(),
                     entity.getCpf(),
                     entity.getName(),
                     entity.getEmail()

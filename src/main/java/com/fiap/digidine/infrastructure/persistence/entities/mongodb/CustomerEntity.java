@@ -1,5 +1,6 @@
 package com.fiap.digidine.infrastructure.persistence.entities.mongodb;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,8 @@ public class CustomerEntity {
 
     @Id // Define o identificador do documento
     private String id;
+    private long customerNumber;
+    @CPF
     private String cpf;
     private String name;
     private String email;
@@ -15,10 +18,19 @@ public class CustomerEntity {
     public CustomerEntity() {
     }
 
-    public CustomerEntity(String cpf, String name, String email) {
+    public CustomerEntity(long customerNumber, String cpf, String name, String email) {
+        this.customerNumber = customerNumber;
         this.cpf = cpf;
         this.name = name;
         this.email = email;
+    }
+
+    public long getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(long customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
     public String getId() {

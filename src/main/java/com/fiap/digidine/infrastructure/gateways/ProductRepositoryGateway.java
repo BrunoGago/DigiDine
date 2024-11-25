@@ -5,6 +5,7 @@ import com.fiap.digidine.domain.entities.Product;
 import com.fiap.digidine.domain.entities.enums.Category;
 import com.fiap.digidine.infrastructure.gateways.mappers.ProductEntityMapper;
 import com.fiap.digidine.infrastructure.persistence.ProductMongoDBRepository;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.CustomerEntity;
 import com.fiap.digidine.infrastructure.persistence.entities.mongodb.ProductEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,15 +23,21 @@ public class ProductRepositoryGateway implements ProductGateway {
 
     @Override
     public String create(Product product) {
+        ProductEntity lastProduct= productRepository.findTopByProductByProductNumberDesc();
+        long nextProductNumber = (lastProduct != null ? lastProduct.getProductNumber() : 0) + 1;
+
+        product.setProductNumber(nextProductNumber);
+
         ProductEntity productEntity = productEntityMapper.toEntity(product);
+
         productRepository.save(productEntity);
 
         return productEntity.getId();
     }
 
     @Override
-    public Product getById(String productId) {
-        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+    public Product getByProductNumber(long productNumber) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findByProductNumber(productNumber);
 
         if(optionalProductEntity.isEmpty())
         {
@@ -41,9 +48,9 @@ public class ProductRepositoryGateway implements ProductGateway {
     }
 
     @Override
-    public Product updateById(String id, Product product) {
+    public Product updateByProductNumber(long productNumber, Product product) {
         // Faça uso da productRepository para buscar o produto pelo id
-        Optional<ProductEntity> optionalProductEntity = productRepository.findById(id);
+        Optional<ProductEntity> optionalProductEntity = productRepository.findByProductNumber(productNumber);
 
         // Verificando se o produto existe
         if(optionalProductEntity.isEmpty())
@@ -53,6 +60,7 @@ public class ProductRepositoryGateway implements ProductGateway {
 
         // Atualizando os dados do produto
         ProductEntity productEntity = optionalProductEntity.get();
+        productEntity.setProductNumber(product.getProductNumber());
         productEntity.setCategory(product.getCategory());
         productEntity.setDescription(product.getDescription());
         productEntity.setName(product.getName());
@@ -65,9 +73,9 @@ public class ProductRepositoryGateway implements ProductGateway {
     }
 
     @Override
-    public void remove(String productId) {
+    public void removeByProductNumber(long productNumber) {
         // Faça uso da productRepository para buscar o produto pelo id
-        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+        Optional<ProductEntity> optionalProductEntity = productRepository.findByProductNumber(productNumber);
 
         // Verificando se o produto existe
         if(optionalProductEntity.isEmpty())
@@ -75,7 +83,7 @@ public class ProductRepositoryGateway implements ProductGateway {
             throw new IllegalArgumentException("Produto não cadastrado anteriormente!");
         }
 
-        productRepository.deleteById(productId);
+        productRepository.deleteByProductNumber(productNumber);
     }
 
     @Override

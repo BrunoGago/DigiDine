@@ -7,7 +7,7 @@ public class PaymentEntityMapper {
 
     public Payment toDomain(PaymentEntity entity){
         return new Payment(
-                entity.getOrderId(),
+                entity.getPaymentNumber(),
                 entity.getPaymentStatus(),
                 entity.getMethod()
         );

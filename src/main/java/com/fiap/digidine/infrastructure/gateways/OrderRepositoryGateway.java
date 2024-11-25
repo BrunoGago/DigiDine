@@ -8,6 +8,7 @@ import com.fiap.digidine.domain.entities.enums.OrderStatus;
 import com.fiap.digidine.infrastructure.gateways.mappers.CustomerEntityMapper;
 import com.fiap.digidine.infrastructure.gateways.mappers.OrderEntityMapper;
 import com.fiap.digidine.infrastructure.persistence.OrderMongoDBRepository;
+import com.fiap.digidine.infrastructure.persistence.entities.mongodb.CustomerEntity;
 import com.fiap.digidine.infrastructure.persistence.entities.mongodb.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,12 +30,12 @@ public class OrderRepositoryGateway implements OrderGateway {
 
 
     @Override
-    public String createOrder(Order order) {
+    public Long createOrder(Order order) {
         Order baseOrder = new Order();
 
         baseOrder.setOrderStatus(OrderStatus.RECEBIDO);
         baseOrder.setCreatedAt(LocalDateTime.now());
-        baseOrder.setOrderNumber(UUID.randomUUID().toString());
+        baseOrder.setOrderNumber(getNextOrderNumber());
         baseOrder.setCustomer(order.getCustomer());
         baseOrder.setProducts(order.getProducts());
         baseOrder.setTotalPrice(calculatePrice(order.getProducts()));
@@ -44,8 +45,15 @@ public class OrderRepositoryGateway implements OrderGateway {
         return baseOrder.getOrderNumber();
     }
 
+    private long getNextOrderNumber() {
+        // Obter o último número de cliente
+        OrderEntity lastOrder = orderRepository.findTopByOrderByOrderNumberDesc();
+        long nextCustomerNumber = (lastOrder != null ? lastOrder.getOrderNumber() : 0) + 1;
+        return nextCustomerNumber;
+    }
+
     @Override
-    public Order updateOrderStatus(String orderNumber, OrderStatus status) {
+    public Order updateOrderStatusByOrderNumber(long orderNumber, OrderStatus status) {
         OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
         if(orderEntity == null) {
@@ -61,7 +69,7 @@ public class OrderRepositoryGateway implements OrderGateway {
     }
 
     @Override
-    public Order updateOrder(String orderNumber, Order order) {
+    public Order updateOrderByOrderNumber(long orderNumber, Order order) {
         OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
         if(orderEntity == null) {
@@ -111,13 +119,6 @@ public class OrderRepositoryGateway implements OrderGateway {
         }
     }
 
-    @Override
-    public String checkoutOrder(List<Product> products, Customer customer) {
-        Order order = new Order(UUID.randomUUID().toString(), customer, products, calculatePrice(products), OrderStatus.RECEBIDO, LocalDateTime.now());
-        createOrder(order);
-        return order.getOrderNumber();
-    }
-
     /*
      * @return Retorna o preço total dos produtos
      * @param products Lista de produtos
@@ -133,7 +134,7 @@ public class OrderRepositoryGateway implements OrderGateway {
     }
 
     @Override
-    public OrderStatus getOrderStatus(String orderNumber) {
+    public OrderStatus getOrderStatus(long orderNumber) {
         OrderEntity orderEntity = orderRepository.findByOrderNumber(orderNumber);
 
         if(orderEntity == null) {
@@ -144,4 +145,6 @@ public class OrderRepositoryGateway implements OrderGateway {
 
         return order.getOrderStatus();
     }
+
+
 }

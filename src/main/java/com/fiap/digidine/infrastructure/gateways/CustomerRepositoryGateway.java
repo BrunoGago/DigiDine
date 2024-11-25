@@ -21,12 +21,19 @@ public class CustomerRepositoryGateway implements CustomerGateway {
 
     @Override
     public Customer register(Customer customer) {
+        // Obter o último número de cliente
+        CustomerEntity lastCustomer = customerRepository.findTopByCustomerByCustomerNumberDesc();
+        long nextCustomerNumber = (lastCustomer != null ? lastCustomer.getCustomerNumber() : 0) + 1;
+
+        // Configurar o novo número de cliente
+        customer.setCustomerNumber(nextCustomerNumber);
+
         return customerEntityMapper.toDomain(customerRepository.save(customerEntityMapper.toEntity(customer)));
     }
 
     @Override
     public Customer getByCpf(String cpf) {
-        CustomerEntity customerEntity = customerRepository.findById(cpf).orElse(null);
+        CustomerEntity customerEntity = customerRepository.findByCpf(cpf);
         if (customerEntity == null) {
             throw new IllegalArgumentException("Cliente não encontrado!");
         }

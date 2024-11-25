@@ -10,7 +10,7 @@ public class RemoveProductUseCase {
         this.productsGateway = productsGateway;
     }
 
-    public void remove(String id){
-        productsGateway.remove(id);
+    public void remove(long productNumber){
+        productsGateway.removeByProductNumber(productNumber);
     }
 }

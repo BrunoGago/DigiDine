@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
@@ -37,6 +39,15 @@ public class CustomerController {
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
         }
+    }
 
+    @GetMapping()
+    public ResponseEntity<Object> listCustomers() {
+        try{
+            List<Customer> customers = customersGateway.list();
+            return ResponseEntity.status(HttpStatus.OK).body(customers);
+        }catch (IllegalArgumentException illegalArgumentException){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
+        }
     }
 }

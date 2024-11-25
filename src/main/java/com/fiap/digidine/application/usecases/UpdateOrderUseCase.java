@@ -11,8 +11,8 @@ public class UpdateOrderUseCase {
         this.ordersGateway = ordersGateway;
     }
 
-    public Order updateOrder(String id, Order order){
-        return ordersGateway.updateOrder(id, order);
+    public Order updateOrderByOrderNumber(long orderNumber, Order order){
+        return ordersGateway.updateOrderByOrderNumber(orderNumber, order);
     }
 
 }

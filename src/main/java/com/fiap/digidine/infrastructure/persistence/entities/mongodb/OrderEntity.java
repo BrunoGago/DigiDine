@@ -13,8 +13,7 @@ public class OrderEntity {
 
     @Id // Define o identificador do documento
     private String id;
-
-    private String orderNumber;
+    private long orderNumber;
     @DBRef // Indica que é uma referência a outro documento (CustomerEntity)
     private CustomerEntity customer;
     @DBRef // Indica que é uma lista de referências para documentos (ProductEntity)
@@ -26,7 +25,7 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(String orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus status, LocalDateTime createdAt) {
+    public OrderEntity(long orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus status, LocalDateTime createdAt) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
@@ -35,11 +34,11 @@ public class OrderEntity {
         this.createdAt = createdAt;
     }
 
-    public String getOrderNumber() {
+    public long getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
+    public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
     }
 

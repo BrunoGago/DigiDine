@@ -8,9 +8,9 @@ import java.util.List;
 public interface ProductGateway {
 
     String create(Product product);
-    Product getById(String productId);
-    Product updateById(String productId, Product request);
-    void remove(String productId);
+    Product getByProductNumber(long productNumber);
+    Product updateByProductNumber(long productNumber, Product request);
+    void removeByProductNumber(long ProductNumber);
     List<Product> findByCategory(Category category);
     List<Product> list();
 }

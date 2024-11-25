@@ -11,18 +11,18 @@ public class PaymentEntity {
 
     @Id // Define o identificador do documento
     private String id;
-
     @DBRef
     private String orderId;
-
+    private long paymentNumber;
     private PaymentStatus paymentStatus;
     private PaymentMethod method; // Ex: "QRCode"
 
     public PaymentEntity() {
     }
 
-    public PaymentEntity(String orderId, PaymentStatus paymentStatus, PaymentMethod method) {
+    public PaymentEntity(String orderId, long paymentNumber, PaymentStatus paymentStatus, PaymentMethod method) {
         this.orderId = orderId;
+        this.paymentNumber = paymentNumber;
         this.paymentStatus = paymentStatus;
         this.method = method;
     }
@@ -41,6 +41,13 @@ public class PaymentEntity {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public long getPaymentNumber() {
+        return paymentNumber;
+    }
+    public void setPaymentNumber(long paymentNumber) {
+        this.paymentNumber = paymentNumber;
     }
 
     public PaymentStatus getPaymentStatus() {
