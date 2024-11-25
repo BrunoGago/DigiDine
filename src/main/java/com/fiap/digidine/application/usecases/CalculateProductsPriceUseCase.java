@@ -13,7 +13,7 @@ public class CalculateProductsPriceUseCase {
         this.ordersGateway = ordersGateway;
     }
 
-    public double calculatePrice(List<Product> products) {
+    public double calculatePrice(List<Long> products) {
         return ordersGateway.calculatePrice(products);
     }
 }

@@ -9,7 +9,6 @@ public interface CustomerMongoDBRepository extends MongoRepository<CustomerEntit
 
     CustomerEntity findByCpf(String cpf);
 
-    @Query(value = "{}", sort = "{customerNumber: -1}", fields = "{customerNumber: 1}")
-    CustomerEntity findTopByCustomerByCustomerNumberDesc();
+    CustomerEntity findFirstByOrderByCustomerNumberDesc();
 
 }

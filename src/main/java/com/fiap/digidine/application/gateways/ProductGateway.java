@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductGateway {
 
-    String create(Product product);
+    Long create(Product product);
     Product getByProductNumber(long productNumber);
     Product updateByProductNumber(long productNumber, Product request);
     void removeByProductNumber(long ProductNumber);

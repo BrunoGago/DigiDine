@@ -26,10 +26,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody ProductRequest request) {
+    public ResponseEntity<Long> create(@RequestBody ProductRequest request) {
         try{
-            productsGateway.create(productDTOMapper.toProduct(request));
-            return ResponseEntity.status(HttpStatus.OK).build();
+            Long productNumber = productsGateway.create(productDTOMapper.toProduct(request));
+            return ResponseEntity.status(HttpStatus.CREATED).body(productNumber);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

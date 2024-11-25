@@ -20,7 +20,7 @@ public class OrderDTOMapper {
     }
 
     public Order toOrder(OrderRequest request){
-        return new Order(null, request.customer(), request.products(), request.totalPrice(), request.orderStatus(), request.createdAt());
+        return new Order(null, request.customerNumber(), request.productsNumber(), request.totalPrice(), request.orderStatus(), request.createdAt());
     }
 
 }

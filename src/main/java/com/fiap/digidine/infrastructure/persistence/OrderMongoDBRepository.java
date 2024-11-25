@@ -11,8 +11,7 @@ public interface OrderMongoDBRepository extends MongoRepository<OrderEntity, Str
 
     List<OrderEntity> findByStatusNotOrderByStatusAscCreatedAtAsc(String status);
 
-    @Query(value = "{}", sort = "{orderNumber: -1}", fields = "{orderNumber: 1}")
-    OrderEntity findTopByOrderByOrderNumberDesc();
+    OrderEntity findFirstByOrderByOrderNumberDesc();
 
     OrderEntity findByOrderNumber(long orderNumber);
 }

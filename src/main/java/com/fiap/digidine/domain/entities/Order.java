@@ -8,8 +8,8 @@ import java.util.List;
 public class Order {
 
     private Long orderNumber;
-    private Customer customer;
-    private List<Product> products;
+    private Long customerNumber;
+    private List<Long> productsNumber;
     private double totalPrice;
     private OrderStatus orderStatus;
     private LocalDateTime createdAt;
@@ -18,10 +18,10 @@ public class Order {
 
     }
 
-    public Order(Long orderNumber, Customer customer, List<Product> products, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
+    public Order(Long orderNumber, Long customerNumber, List<Long> productsNumber, double totalPrice, OrderStatus orderStatus, LocalDateTime createdAt) {
         this.orderNumber = orderNumber;
-        this.customer = customer;
-        this.products = products;
+        this.customerNumber = customerNumber;
+        this.productsNumber = productsNumber;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
         this.createdAt = createdAt;
@@ -35,20 +35,20 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomer() {
+        return customerNumber;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(Long customer) {
+        this.customerNumber = customer;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Long> getProducts() {
+        return productsNumber;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProducts(List<Long> products) {
+        this.productsNumber = products;
     }
 
     public double getTotalPrice() {

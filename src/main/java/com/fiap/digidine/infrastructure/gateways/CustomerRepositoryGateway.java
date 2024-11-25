@@ -22,7 +22,7 @@ public class CustomerRepositoryGateway implements CustomerGateway {
     @Override
     public Customer register(Customer customer) {
         // Obter o último número de cliente
-        CustomerEntity lastCustomer = customerRepository.findTopByCustomerByCustomerNumberDesc();
+        CustomerEntity lastCustomer = customerRepository.findFirstByOrderByCustomerNumberDesc();
         long nextCustomerNumber = (lastCustomer != null ? lastCustomer.getCustomerNumber() : 0) + 1;
 
         // Configurar o novo número de cliente

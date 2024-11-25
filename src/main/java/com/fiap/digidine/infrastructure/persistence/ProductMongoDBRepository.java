@@ -14,8 +14,7 @@ public interface ProductMongoDBRepository extends MongoRepository<ProductEntity,
 
     Optional<ProductEntity> findByProductNumber(long productNumber);
 
-    @Query(value = "{}", sort = "{productNumber: -1}", fields = "{productNumber: 1}")
-    ProductEntity findTopByProductByProductNumberDesc();
+    ProductEntity findFirstByOrderByProductNumberDesc();
 
     void deleteByProductNumber(long productNumber);
 }

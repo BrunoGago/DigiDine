@@ -47,9 +47,8 @@ public class OrderRepositoryGateway implements OrderGateway {
 
     private long getNextOrderNumber() {
         // Obter o último número de cliente
-        OrderEntity lastOrder = orderRepository.findTopByOrderByOrderNumberDesc();
-        long nextCustomerNumber = (lastOrder != null ? lastOrder.getOrderNumber() : 0) + 1;
-        return nextCustomerNumber;
+        OrderEntity lastOrder = orderRepository.findFirstByOrderByOrderNumberDesc();
+        return (lastOrder != null ? lastOrder.getOrderNumber() : 0) + 1;
     }
 
     @Override
@@ -124,11 +123,11 @@ public class OrderRepositoryGateway implements OrderGateway {
      * @param products Lista de produtos
      */
     @Override
-    public Double calculatePrice(List<Product> products) {
+    public Double calculatePrice(List<Long> products) {
         double totalPrice = 0.0;
 
-        for (Product product : products) {
-            totalPrice += product.getPrice();
+        for (Long product : products) {
+            totalPrice += product;
         }
         return totalPrice;
     }

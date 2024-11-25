@@ -22,8 +22,8 @@ public class ProductRepositoryGateway implements ProductGateway {
     }
 
     @Override
-    public String create(Product product) {
-        ProductEntity lastProduct= productRepository.findTopByProductByProductNumberDesc();
+    public Long create(Product product) {
+        ProductEntity lastProduct= productRepository.findFirstByOrderByProductNumberDesc();
         long nextProductNumber = (lastProduct != null ? lastProduct.getProductNumber() : 0) + 1;
 
         product.setProductNumber(nextProductNumber);
@@ -32,7 +32,7 @@ public class ProductRepositoryGateway implements ProductGateway {
 
         productRepository.save(productEntity);
 
-        return productEntity.getId();
+        return productEntity.getProductNumber();
     }
 
     @Override

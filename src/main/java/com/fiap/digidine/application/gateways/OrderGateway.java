@@ -13,6 +13,6 @@ public interface OrderGateway {
     Order updateOrderStatusByOrderNumber(long orderNumber, OrderStatus status);
     Order updateOrderByOrderNumber(long orderNumber, Order order);
     List<Order> listOrders();
-    Double calculatePrice(List<Product> products);
+    Double calculatePrice(List<Long> products);
     OrderStatus getOrderStatus(long orderNumber);
 }
