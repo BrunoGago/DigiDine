@@ -34,19 +34,19 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody OrderRequest request) {
+    public ResponseEntity<Long> create(@RequestBody OrderRequest request) {
         try{
-            String orderNumber = orderGateway.createOrder(orderDTOMapper.toOrder(request));
+            long orderNumber = orderGateway.createOrder(orderDTOMapper.toOrder(request));
             return ResponseEntity.status(HttpStatus.OK).body(orderNumber);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody OrderRequest request) {
+    @PutMapping("/{orderNumber}")
+    public ResponseEntity<Object> update(@PathVariable long orderNumber, @RequestBody OrderRequest request) {
         try{
-            Order order = orderGateway.updateOrder(id, orderDTOMapper.toOrder(request));
+            Order order = orderGateway.updateOrderByOrderNumber(orderNumber, orderDTOMapper.toOrder(request));
             return ResponseEntity.status(HttpStatus.OK).body(order);
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
@@ -62,11 +62,4 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
-    @PostMapping("/checkout")
-    public ResponseEntity<String> checkoutOrder(@RequestBody List<ProductRequest> products, @RequestBody CustomerRequest customerRequest) {
-        String orderId = orderGateway.checkoutOrder(productDTOMapper.toProducts(products), customerDTOMapper.toCustomer(customerRequest));
-        return ResponseEntity.ok(orderId);
-    }
-
 }

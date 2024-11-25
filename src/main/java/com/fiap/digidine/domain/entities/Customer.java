@@ -2,6 +2,7 @@ package com.fiap.digidine.domain.entities;
 
 public class Customer {
 
+    private Long customerNumber;
     private String cpf; // Tax ID number
     private String name;
     private String email;
@@ -9,10 +10,19 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String cpf, String name, String email) {
+    public Customer(Long customerNumber, String cpf, String name, String email) {
+        this.customerNumber = customerNumber;
         this.cpf = cpf;
         this.name = name;
         this.email = email;
+    }
+
+    public Long getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(Long customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
     public String getCpf() {

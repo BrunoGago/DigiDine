@@ -10,7 +10,7 @@ public class GetPaymentStatusUseCase {
         this.paymentsGateway = paymentsGateway;
     }
 
-    public Payment getPaymentStatus (String orderId) {
-        return paymentsGateway.getStatus(orderId);
+    public Payment getPaymentStatusByOrderNumber (long orderNumber) {
+        return paymentsGateway.getStatusByOrderId(orderNumber);
     }
 }

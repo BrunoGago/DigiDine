@@ -6,10 +6,10 @@ import com.fiap.digidine.infrastructure.controllers.dtos.CustomerResponse;
 
 public class CustomerDTOMapper {
     CustomerResponse toResponse(Customer customer){
-        return new CustomerResponse(customer.getCpf(), customer.getName(), customer.getEmail());
+        return new CustomerResponse(customer.getCustomerNumber(), customer.getCpf(), customer.getName(), customer.getEmail());
     }
 
     public Customer toCustomer(CustomerRequest request){
-        return new Customer(request.cpf(), request.name(), request.email());
+        return new Customer(null, request.cpf(), request.name(), request.email());
     }
 }

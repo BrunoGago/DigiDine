@@ -11,7 +11,7 @@ public class CreateOrderUserCase {
         this.ordersGateway = ordersGateway;
     }
 
-    public String createOrder(Order order){
+    public long createOrder(Order order){
         return ordersGateway.createOrder(order);
     }
 

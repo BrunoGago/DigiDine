@@ -24,10 +24,10 @@ public class PaymentController {
         this.paymentDTOMapper = paymentDTOMapper;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PaymentResponse> getPaymentStatusByOrderId(@PathVariable String orderId) {
+    @GetMapping("/{orderNumber}")
+    public ResponseEntity<PaymentResponse> getPaymentStatusByOrderId(@PathVariable long orderNumber) {
         try{
-            Payment payment = paymentStatusUseCase.getPaymentStatus(orderId);
+            Payment payment = paymentStatusUseCase.getPaymentStatusByOrderNumber(orderNumber);
             return ResponseEntity.status(HttpStatus.OK).body(paymentDTOMapper.toResponse(payment));
         }catch (IllegalArgumentException illegalArgumentException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

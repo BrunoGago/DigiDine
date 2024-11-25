@@ -9,13 +9,10 @@ import java.util.List;
 
 public interface OrderGateway {
 
-    String createOrder(Order order);
-    Order updateOrderStatus(String id, OrderStatus status);
-    Order updateOrder(String orderNumber, Order order);
+    Long createOrder(Order order);
+    Order updateOrderStatusByOrderNumber(long orderNumber, OrderStatus status);
+    Order updateOrderByOrderNumber(long orderNumber, Order order);
     List<Order> listOrders();
-    String checkoutOrder(List<Product> products, Customer customer);
-
-    Double calculatePrice(List<Product> products);
-
-    OrderStatus getOrderStatus(String orderNumber);
+    Double calculatePrice(List<Long> products);
+    OrderStatus getOrderStatus(long orderNumber);
 }

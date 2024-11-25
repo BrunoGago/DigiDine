@@ -11,7 +11,7 @@ public class GetOrderStatusUseCase {
         this.ordersGateway = ordersGateway;
     }
 
-    public OrderStatus getOrderStatus(String orderNumber) {
+    public OrderStatus getOrderStatus(long orderNumber) {
         return ordersGateway.getOrderStatus(orderNumber);
     }
 }

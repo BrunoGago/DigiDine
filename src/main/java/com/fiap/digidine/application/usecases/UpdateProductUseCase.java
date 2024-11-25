@@ -10,8 +10,8 @@ public class UpdateProductUseCase {
         this.productsGateway = productsGateway;
     }
 
-    public Product update(String id, Product request) {
-        return productsGateway.updateById(id, request);
+    public Product update(long productNumber, Product request) {
+        return productsGateway.updateByProductNumber(productNumber, request);
     }
 
 }

@@ -20,11 +20,6 @@ public class OrderConfig {
     }
 
     @Bean
-    CheckoutOrderUseCase checkoutOrderUseCase(OrderGateway orderGateway) {
-        return new CheckoutOrderUseCase(orderGateway);
-    }
-
-    @Bean
     CreateOrderUserCase createOrderUserCase(OrderGateway orderGateway) {
         return new CreateOrderUserCase(orderGateway);
     }

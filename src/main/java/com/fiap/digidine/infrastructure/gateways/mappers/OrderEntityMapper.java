@@ -20,11 +20,11 @@ public class OrderEntityMapper {
 
     public OrderEntity toEntity(Order order){
 
-        return new OrderEntity(order.getOrderNumber(), customerEntityMapper.toEntity(order.getCustomer()), productEntityMapper.toEntities(order.getProducts()), order.getTotalPrice(), order.getOrderStatus(), order.getCreatedAt());
+        return new OrderEntity(order.getOrderNumber(), order.getCustomer(), order.getProducts(), order.getTotalPrice(), order.getOrderStatus(), order.getCreatedAt());
     }
 
     public Order toDomain(OrderEntity entity){
-        return new Order(entity.getOrderNumber(), customerEntityMapper.toDomain(entity.getCustomer()), productEntityMapper.toDomains(entity.getProducts()), entity.getTotalPrice(), entity.getStatus(), entity.getCreatedAt());
+        return new Order(entity.getOrderNumber(), entity.getCustomer(), entity.getProducts(), entity.getTotalPrice(), entity.getStatus(), entity.getCreatedAt());
     }
 
     public Optional<Order> toOptionalDomain(Optional<OrderEntity> optionalEntity) {
@@ -36,9 +36,9 @@ public class OrderEntityMapper {
 
         for (OrderEntity entity : entities) {
             Order order = new Order(
-                    entity.getId(),
-                    customerEntityMapper.toDomain(entity.getCustomer()),
-                    productEntityMapper.toDomains(entity.getProducts()),
+                    entity.getOrderNumber(),
+                    entity.getCustomer(),
+                    entity.getProducts(),
                     entity.getTotalPrice(),
                     entity.getStatus(),
                     entity.getCreatedAt()

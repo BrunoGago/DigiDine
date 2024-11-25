@@ -11,7 +11,7 @@ public class GetProductUseCase {
         this.productsGateway = productsGateway;
     }
 
-    public Product get(String id){
-        return productsGateway.getById(id);
+    public Product get(long productNumber){
+        return productsGateway.getByProductNumber(productNumber);
     }
 }

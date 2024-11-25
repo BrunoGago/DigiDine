@@ -4,25 +4,35 @@ import com.fiap.digidine.domain.entities.enums.PaymentMethod;
 import com.fiap.digidine.domain.entities.enums.PaymentStatus;
 
 public class Payment {
-    private String orderId;
+
+    private long paymentNumber;
+    private long orderNumber;
     private PaymentStatus paymentStatus;
     private PaymentMethod method; // Ex: "QRCode"
 
     public Payment() {
     }
 
-    public Payment(String orderId, PaymentStatus paymentStatus, PaymentMethod method) {
-        this.orderId = orderId;
+    public Payment(long paymentNumber, PaymentStatus paymentStatus, PaymentMethod method) {
+        this.paymentNumber = paymentNumber;
         this.paymentStatus = paymentStatus;
         this.method = method;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public long getPaymentNumber() {
+        return paymentNumber;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setPaymentNumber(long paymentNumber) {
+        this.paymentNumber = paymentNumber;
+    }
+
+    public long getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(long orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public PaymentStatus getPaymentStatus() {

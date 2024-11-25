@@ -13,12 +13,9 @@ public class OrderEntity {
 
     @Id // Define o identificador do documento
     private String id;
-
-    private String orderNumber;
-    @DBRef // Indica que é uma referência a outro documento (CustomerEntity)
-    private CustomerEntity customer;
-    @DBRef // Indica que é uma lista de referências para documentos (ProductEntity)
-    private List<ProductEntity> products;
+    private long orderNumber;
+    private Long customer;
+    private List<Long> products;
     private double totalPrice;
     private OrderStatus status;
     private LocalDateTime createdAt;
@@ -26,7 +23,7 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(String orderNumber, CustomerEntity customer, List<ProductEntity> products, double totalPrice, OrderStatus status, LocalDateTime createdAt) {
+    public OrderEntity(long orderNumber, Long customer, List<Long> products, double totalPrice, OrderStatus status, LocalDateTime createdAt) {
         this.orderNumber = orderNumber;
         this.customer = customer;
         this.products = products;
@@ -35,11 +32,11 @@ public class OrderEntity {
         this.createdAt = createdAt;
     }
 
-    public String getOrderNumber() {
+    public long getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(String orderNumber) {
+    public void setOrderNumber(long orderNumber) {
         this.orderNumber = orderNumber;
     }
 
@@ -51,19 +48,19 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public CustomerEntity getCustomer() {
+    public Long getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerEntity customer) {
+    public void setCustomer(Long customer) {
         this.customer = customer;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<Long> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<Long> products) {
         this.products = products;
     }
 

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ProductDTOMapper {
 
     ProductResponse toResponse(Product product){
-        return new ProductResponse(product.getName(), product.getDescription(), product.getPrice(), product.getCategory());
+        return new ProductResponse(product.getProductNumber(), product.getName(), product.getDescription(), product.getPrice(), product.getCategory());
     }
 
     public List<ProductResponse> toResponses(List<Product> products) {
@@ -20,12 +20,13 @@ public class ProductDTOMapper {
     }
 
     public Product toProduct(ProductRequest request){
-        return new Product(request.name(), request.description(), request.price(), request.category());
+        return new Product(null, request.name(), request.description(), request.price(), request.category());
     }
 
     public List<Product> toProducts(List<ProductRequest> requests) {
         return requests.stream()
                 .map(request -> new Product(
+                        null,
                         request.name(),
                         request.description(),
                         request.price(),

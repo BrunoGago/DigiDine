@@ -9,6 +9,7 @@ public class ProductEntity {
 
     @Id // Define o identificador do documento
     private String id;
+    private Long productNumber;
     private String name;
     private String description;
     private Double price;
@@ -17,7 +18,8 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, String description, Double price, Category category) {
+    public ProductEntity(Long productNumber, String name, String description, Double price, Category category) {
+        this.productNumber = productNumber;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -25,6 +27,14 @@ public class ProductEntity {
     }
 
     // Getters and Setters
+
+    public Long getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(Long productNumber) {
+        this.productNumber = productNumber;
+    }
 
     public String getId() {
         return id;
