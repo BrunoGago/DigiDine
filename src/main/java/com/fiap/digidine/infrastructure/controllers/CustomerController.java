@@ -1,53 +1,49 @@
-package com.fiap.digidine.infrastructure.controllers;
+package com.fiap.digidine.application.controllers;
 
 import com.fiap.digidine.application.gateways.CustomerGateway;
 import com.fiap.digidine.domain.entities.Customer;
-import com.fiap.digidine.infrastructure.controllers.dtos.CustomerRequest;
-import com.fiap.digidine.infrastructure.controllers.mappers.CustomerDTOMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
-@RequestMapping("/api/v1/customers")
+@RequestMapping("/api/customers")
 public class CustomerController {
-    private final CustomerGateway customersGateway;
-    private final CustomerDTOMapper customerDTOMapper;
 
-    public CustomerController(CustomerGateway customersGateway, CustomerDTOMapper customerDTOMapper){
-        this.customersGateway = customersGateway;
-        this.customerDTOMapper = customerDTOMapper;
+    private final CustomerGateway customerGateway;
+    private final RestTemplate restTemplate;
+
+    @Value("${aws.lambda.url}")
+    private String lambdaUrl;
+
+    public CustomerController(CustomerGateway customerGateway, RestTemplate restTemplate) {
+        this.customerGateway = customerGateway;
+        this.restTemplate = restTemplate;
     }
 
-    @PostMapping
-    public ResponseEntity<Void> registerCustomer(@RequestBody CustomerRequest request){
-        try{
-            customersGateway.register(customerDTOMapper.toCustomer(request));
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }catch (IllegalArgumentException illegalArgumentException){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    @GetMapping("/authenticate")
+    public ResponseEntity<Customer> authenticate(@RequestParam String cpf) {
+        Customer customer = customerGateway.getByCpf(cpf);
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
-    @GetMapping("/{cpf}")
-    public ResponseEntity<Object> getCustomerByCpf(@PathVariable String cpf) {
-        try{
-            Customer customer = customersGateway.getByCpf(cpf);
-            return ResponseEntity.status(HttpStatus.OK).body(customer);
-        }catch (IllegalArgumentException illegalArgumentException){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
-        }
-    }
-
-    @GetMapping()
-    public ResponseEntity<Object> listCustomers() {
-        try{
-            List<Customer> customers = customersGateway.list();
-            return ResponseEntity.status(HttpStatus.OK).body(customers);
-        }catch (IllegalArgumentException illegalArgumentException){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(illegalArgumentException.getMessage());
+    @GetMapping("/authenticateWithApiGateway")
+    public ResponseEntity<String> authenticateWithApiGateway(@RequestParam String cpf) {
+        String apiGatewayUrl = "https://your-api-id.execute-api.region.amazonaws.com/your-stage";
+        String response = restTemplate.getForObject(apiGatewayUrl + "?cpf=" + cpf, String.class);
+        if ("Authenticated".equals(response)) {
+            return ResponseEntity.ok("Authenticated"); 
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication Failed");
         }
     }
 }

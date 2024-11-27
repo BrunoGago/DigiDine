@@ -105,6 +105,25 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+		<!-- Spring Web for RestTemplate -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- JJWT for JWT parsing and creation -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
+		<!-- Optional: Spring Boot Starter for AWS if needed -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-aws</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
 
 	</dependencies>
 	<dependencyManagement>

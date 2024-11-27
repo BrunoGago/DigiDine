@@ -16,3 +16,7 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+aws:
+  lambda:
+    url: https://your-api-gateway-url/your-lambda-function
