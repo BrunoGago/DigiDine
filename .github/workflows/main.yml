@@ -1,0 +1,49 @@
+name: Deploy to EKS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_DEFAULT_REGION: "us-east-2"
+  CLUSTER_NAME: "eks-cluster"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Setup AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+
+      # Save kubeconfig to a file
+      - name: Save kubeconfig
+        run: cat ~/.kube/config > kubeconfig
+      
+      # Update kubeconfig for EKS
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
+
+      # Apply all Kubernetes manifests in the directory
+      - name: Apply All Kubernetes Manifests
+        run: |
+          for file in k8-manifests/*.yaml; do
+            kubectl apply -f "$file" --kubeconfig=kubeconfig
+          done
+
+      # Verify Kubernetes Deployment
+      - name: Verify Kubernetes Resources
+        run: |
+          kubectl get pods --kubeconfig=kubeconfig
+          kubectl get services --kubeconfig=kubeconfig
+
