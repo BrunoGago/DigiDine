@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo  # Nome do serviço ajustado para 'mongo'
+  labels:
+    app: mongodb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0ed2012a602007132,subnet-0b94c50396a512ce1,subnet-02ab00ddbcaf406e8
+    
+    
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017  # Porta externa
+      targetPort: 27017  # Porta do container
+  type: LoadBalancer
