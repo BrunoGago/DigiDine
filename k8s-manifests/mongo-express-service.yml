@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+  labels:
+    app: mongo-express
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0ed2012a602007132,subnet-0b94c50396a512ce1,subnet-02ab00ddbcaf406e8
+    
+    
+spec:
+  selector:
+    app: mongo-express
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: LoadBalancer
