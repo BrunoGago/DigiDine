@@ -34,7 +34,7 @@ jobs:
       - name: Apply All Kubernetes Manifests
         run: |
           for file in k8-manifests/*.yaml; do
-            kubectl apply -f "$file" --kubeconfig=kubeconfig
+            kubectl apply -f "$file"
           done
 
       # Verify Kubernetes Deployment
