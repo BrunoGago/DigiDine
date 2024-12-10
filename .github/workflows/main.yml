@@ -33,7 +33,7 @@ jobs:
       # Apply all Kubernetes manifests in the directory
       - name: Apply All Kubernetes Manifests
         run: |
-          for file in k8-manifests/*.yaml; do
+          for file in k8-manifests/*.yml; do
             kubectl apply -f "$file"
           done
 
