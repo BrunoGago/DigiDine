@@ -33,13 +33,13 @@ jobs:
       # Apply all Kubernetes manifests in the directory
       - name: Apply All Kubernetes Manifests
         run: |
-          for file in k8-manifests/*.yml; do
+          for file in k8s-manifests/*.yml; do
             kubectl apply -f "$file"
           done
 
       # Verify Kubernetes Deployment
       - name: Verify Kubernetes Resources
         run: |
-          kubectl get pods --kubeconfig=kubeconfig
-          kubectl get services --kubeconfig=kubeconfig
+          kubectl get pods 
+          kubectl get services 
 
