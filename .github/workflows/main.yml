@@ -26,10 +26,6 @@ jobs:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
 
-      # Save kubeconfig to a file
-      - name: Save kubeconfig
-        run: cat ~/.kube/config > kubeconfig
-      
       # Update kubeconfig for EKS
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }}
