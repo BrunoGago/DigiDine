@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digidine-service
+  labels:
+    app: digidine
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0ed2012a602007132,subnet-0b94c50396a512ce1,subnet-02ab00ddbcaf406e8
+    
+spec:
+  selector:
+    app: digidine
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
